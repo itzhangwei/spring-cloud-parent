@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.learn.spring.cloud</groupId>
+    <artifactId>spring-cloud-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>eureka/eureka-service</module>
+    </modules>
+    <packaging>pom</packaging>
+
+    <name>spring-cloud-parent</name>
+    <description>学习Spring cloud项目夫工程</description>
+
+    <properties>
+        <!--设置编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+
+        <!--    插件    -->
+        <docker.plugin.version>1.0.0</docker.plugin.version>
+        <docker.image.prefix>learn</docker.image.prefix>
+        <maven.resources.plugin>3.1.0</maven.resources.plugin>
+        <maven.compiler.plugin>3.6.1</maven.compiler.plugin>
+        <spring-boot-maven-plugin>2.1.7.RELEASE</spring-boot-maven-plugin>
+
+        <spring-cloud-versoin>Greenwich.RELEASE</spring-cloud-versoin>
+        <spring-boot-version>2.1.7.RELEASE</spring-boot-version>
+        <slf4j-api-version>2.0.0-alpha0</slf4j-api-version>
+
+
+
+    </properties>
+
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api-version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud-versoin}</version>
+                <type>pom</type>
+                <scope>import</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
+
+    <build>
+        <!--重要 如果不设置resource 会导致application.yaml中的@@找不到pom文件中的配置-->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+        <!--重要 如果不设置resource 会导致application.yaml中的@@找不到pom文件中的配置-->
+
+        <pluginManagement>
+
+            <plugins>
+                <!--docker插件，需要具体到项目 -->
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker.plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <!--生成的镜像名成-->
+                        <imageName>${project.artifactId}</imageName>
+                        <imageTags>
+                            <imageTag>${project.version}</imageTag>
+                            <imageTag>latest</imageTag>
+                        </imageTags>
+                        <!--dockerfile目录-->
+                        <dockerDirectory>${project.basedir}</dockerDirectory>
+                        <resources>
+                            <resource>
+                                <targetPath>/</targetPath>
+                                <directory>${project.build.directory}</directory>
+                                <include>${project.build.finalName}.jar</include>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot-maven-plugin}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+                <version>${maven.compiler.plugin}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven.resources.plugin}</version>
+            </plugin>
+
+        </plugins>
+    </build>
+
+<!-- 私服 -->
+    <repositories>
+        <repository>
+            <id>imx</id>
+            <name>maven-central</name>
+            <url>http://106.13.162.44:6081/repository/imx/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>public</id>
+            <name>pluginRepo</name>
+            <url>http://106.13.162.44:6081/repository/imx/</url>
+        </pluginRepository>
+    </pluginRepositories>
+</project>
