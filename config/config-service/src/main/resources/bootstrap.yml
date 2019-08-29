@@ -1,0 +1,27 @@
+server:
+  port: 8210
+
+spring:
+  application:
+    name: config-service
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: true #jackson返回date为日期时间戳
+#  cloud:
+#    config:
+#      server:
+#        git:
+#          username: it_zhangwei@163.com
+#          password:
+
+eureka:
+  instance:
+    appname: ${spring.application.name}
+    lease-expiration-duration-in-seconds: 20 #20s没有发送心跳，表示自己挂了，注册中心可以从注册信息中剔除我了
+    lease-renewal-interval-in-seconds: 10 #每隔10秒向注册中心发布一次心跳，证明自己还活着
+    instance-id: ${spring.application.name}:${server.port}
+    prefer-ip-address: true #显示访问ip地址
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:8710/eureka

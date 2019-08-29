@@ -1,0 +1,32 @@
+
+server:
+  port: 8110
+
+spring:
+  application:
+    name: eureka-service
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: true # 解决spring boot 2x的date日期返回字符串日期
+eureka:
+  client:
+    fetch-registry: false # 关闭检索注册中心服务，获取注册信息
+    register-with-eureka: false #关闭将自己作为客户短注册的服务端
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+  instance:
+    hostname: localhost
+    appname: ${spring.application.name}
+  server:
+    enable-self-preservation: false #关闭保护中心，确保注册中心可以剔除非正常状态的注册实例
+    eviction-interval-timer-in-ms: 5000 #（代表是5秒，单位是毫秒,清理失效服务的间隔 ）
+
+management:
+  info:
+    git:
+      mode: full
+
+# 日志级别
+#logging:
+#  level:
+#    com: debug
