@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>eureka/eureka-service</module>
+        <module>config/config-service</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -26,25 +27,70 @@
         <docker.image.prefix>learn</docker.image.prefix>
         <maven.resources.plugin>3.1.0</maven.resources.plugin>
         <maven.compiler.plugin>3.6.1</maven.compiler.plugin>
-        <spring-boot-maven-plugin>2.1.7.RELEASE</spring-boot-maven-plugin>
+        <spring-boot-maven-plugin>2.1.5.RELEASE</spring-boot-maven-plugin>
 
-        <spring-cloud-versoin>Greenwich.RELEASE</spring-cloud-versoin>
-        <spring-boot-version>2.1.7.RELEASE</spring-boot-version>
-        <slf4j-api-version>2.0.0-alpha0</slf4j-api-version>
-
-
+        <!--   依赖   -->
+        <spring-cloud-versoin>Greenwich.SR2</spring-cloud-versoin>
+        <spring-boot-version>2.1.5.RELEASE</spring-boot-version>
+        <slf4j-version>1.7.28</slf4j-version>
+        <guava-version>16.0.1</guava-version>
+        <jackson-version>2.10.0.pr1</jackson-version>
+        <lombok-version>1.18.8</lombok-version>
+        <gson-version>2.8.5</gson-version>
 
     </properties>
 
 
     <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson-version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.8</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--   日志 slf4j-api版本1.8以上需要：slf4j-api-1.8.0-beta0.jar，slf4j-log4j12-1.8.0-beta0.jar，log4j-1.2.17.jar 三个一起使用
+               或者 slf4j-api-1.8.0-beta0.jar，slf4j-simple-1.8.0-beta0.jar 两个一起使用，simple输出无彩色
+           -->
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j-api-version}</version>
+            <version>${slf4j-version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava-version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>${spring-boot-version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -63,6 +109,37 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot-version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>slf4j-api</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>jackson-databind</artifactId>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>jackson-core</artifactId>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>jackson-annotations</artifactId>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot-version}</version>
+                <scope>test</scope>
+            </dependency>
+
         </dependencies>
 
     </dependencyManagement>
@@ -149,7 +226,7 @@
         </plugins>
     </build>
 
-<!-- 私服 -->
+    <!-- 私服 -->
     <repositories>
         <repository>
             <id>imx</id>
