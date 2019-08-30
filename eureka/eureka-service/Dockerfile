@@ -12,7 +12,8 @@ ENV PORT_TO_EXPOSE=8110
 
 # ADD将本地文件添加到容器中，tar类型文件会自动解压(网络压缩资源不会被解压)，可以访问网络资源，类似wget
 # 添加编译过后的jar到docker容器中，并重新命名
-ADD ./target/*.jar ./eureka.jar
+ADD ./target/*.jar /eureka.jar
+
 
 # 解决docker容器和宿主服务器的时区差问题
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
