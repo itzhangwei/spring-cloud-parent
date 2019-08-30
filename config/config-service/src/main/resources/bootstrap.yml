@@ -7,12 +7,24 @@ spring:
   jackson:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: true #jackson返回date为日期时间戳
-#  cloud:
-#    config:
-#      server:
-#        git:
-#          username: it_zhangwei@163.com
-#          password:
+  cloud:
+    config:
+      server:
+        git:
+          username: it_zhangwei@163.com
+          # http://${spring.application.name}:${server.port}/encrypt 加密
+          password: '{cipher}c14b0539296b9483fdbf90c6612806b45134ef528df7db162086abc914096ff0f07ec07a7107dcb91cceac4700ca8cf1'
+          uri: https://github.com/itzhangwei/spring-cloud-parent/
+          default-label: master
+          search-paths: /config/repo #配置文件仓库地址
+    bus:
+      trace:
+        enabled: true
+  rabbitmq:
+    username: admin
+    password: admin-rabbitmq
+    host: 106.13.162.44
+    port: 5672
 
 eureka:
   instance:
@@ -24,4 +36,13 @@ eureka:
     hostname: localhost
   client:
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:8710/eureka
+      defaultZone: http://${eureka.instance.hostname}:8110/eureka
+
+encrypt:
+  key: ${spring.application.name}:${server.port}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
