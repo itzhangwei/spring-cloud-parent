@@ -23,7 +23,7 @@
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
         <!--    插件    -->
-        <docker.plugin.version>1.0.0</docker.plugin.version>
+        <docker.plugin.version>1.2.0</docker.plugin.version>
         <docker.image.prefix>learn</docker.image.prefix>
         <maven.resources.plugin>3.1.0</maven.resources.plugin>
         <maven.compiler.plugin>3.6.1</maven.compiler.plugin>
