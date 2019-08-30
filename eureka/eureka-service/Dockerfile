@@ -22,4 +22,4 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shangh
 EXPOSE $PORT_TO_EXPOSE
 
 # 入口,运行镜像
-ENTRYPOINT ['java','-Xms1g','-Xmx2g',"-Djava.security.egd=file:/dev/./urandom","-jar","/eureka.jar"]
+ENTRYPOINT ["java","-Xms1g","-Xmx2g","-Djava.security.egd=file:/dev/./urandom","-jar","/eureka.jar"]
