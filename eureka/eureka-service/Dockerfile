@@ -1,5 +1,5 @@
 # 镜像环境
-FROM registry.cn-shanghai.aliyuncs.com/qianjiu_docker/openjdk: 8-jdk-alpine
+FROM registry.cn-shanghai.aliyuncs.com/qianjiu_docker/openjdk:8-jdk-alpine
 
 # 注释信息，
 LABEL maintainer=it_zhangwei@163.com
