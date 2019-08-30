@@ -22,7 +22,7 @@ spring:
         enabled: true
   rabbitmq:
     username: admin
-    password: admin-rabbitmq
+    password: '{cipher}542033addbecb5711f12d63db3cdb9c359b971350934dec72e1226ff2822afb3'
     host: 106.13.162.44
     port: 5672
 
