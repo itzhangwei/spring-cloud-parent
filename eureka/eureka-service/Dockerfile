@@ -18,7 +18,7 @@ ADD ./target/*.jar ./eureka.jar
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
 
 # 暴露端口
-EXPOSE PORT_TO_EXPOSE
+EXPOSE $PORT_TO_EXPOSE
 
 # 入口,运行镜像
 ENTRYPOINT ['java','-Xms1g','-Xmx2g',"-Djava.security.egd=file:/dev/./urandom","-jar","/eureka.jar"]
