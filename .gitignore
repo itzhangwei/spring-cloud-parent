@@ -16,3 +16,9 @@
 *.iml
 *.ipr
 logs/
+
+/*/*/target/
+/*/target/
+./logs/*
+/*/logs
+/*/*/logs
