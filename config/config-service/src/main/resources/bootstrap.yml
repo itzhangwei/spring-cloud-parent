@@ -36,7 +36,7 @@ eureka:
     hostname: localhost
   client:
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:8110/eureka
+      defaultZone: http://${eureka.instance.hostname}:8110/eureka/
 
 encrypt:
   key: ${spring.application.name}:${server.port}
