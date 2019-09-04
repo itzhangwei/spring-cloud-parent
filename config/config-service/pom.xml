@@ -142,13 +142,6 @@
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-core</artifactId>
-            <version>5.1.5.RELEASE</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-messaging</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
     </dependencies>

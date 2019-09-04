@@ -23,7 +23,7 @@ spring:
   rabbitmq:
     username: admin
     password: '{cipher}542033addbecb5711f12d63db3cdb9c359b971350934dec72e1226ff2822afb3'
-    host: 106.13.162.44
+    host: @intranet-ip@
     port: 5672
 
 eureka:
@@ -33,10 +33,10 @@ eureka:
     lease-renewal-interval-in-seconds: 10 #每隔10秒向注册中心发布一次心跳，证明自己还活着
     instance-id: ${spring.application.name}:${server.port}
     prefer-ip-address: true #显示访问ip地址
-    hostname: localhost
+    hostname: @intranet-ip@
   client:
     service-url:
-      defaultZone: http://192.168.0.4:8110/eureka/
+      defaultZone: http://@intranet-ip@:8110/eureka/
 
 encrypt:
   key: ${spring.application.name}:${server.port}
