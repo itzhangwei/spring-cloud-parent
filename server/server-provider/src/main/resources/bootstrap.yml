@@ -1,0 +1,33 @@
+
+spring:
+  application:
+    name: server-provider
+
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-service
+      label: master
+      profile: dev
+      fail-fast: true
+  rabbitmq:
+    port: 5672
+    host: @extranet-ip@
+    username: admin
+    password: admin-rabbitmq #'{cipher}2a844fefdd91080cee2a7f3f328abede624aaaa17b1822ff532273a681813c20'
+eureka:
+  client:
+    service-url:
+      defaultZone: http://@extranet-ip@:8110/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 10 #每隔10秒发送一次心跳
+    lease-expiration-duration-in-seconds: 20 #20m没收到心跳默认死亡
+    appname: ${spring.application.name}
+    instance-id: ${spring.application.name}:${server.port}
+    prefer-ip-address: true
+server:
+  port: 8810
+
+encrypt:
+  key: ${spring.application.name}:${server.port}
