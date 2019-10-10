@@ -8,12 +8,16 @@ spring:
   jackson:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: true # 解决spring boot 2x的date日期返回字符串日期
+  security:
+    user:
+      name: admin
+      password: admin-eureka #{PASSWORD:admin-eureka}
 eureka:
   client:
     fetch-registry: false # 关闭检索注册中心服务，获取注册信息
     register-with-eureka: false #关闭将自己作为客户短注册的服务端
 #    service-url:
-#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+#      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.hostname}:${server.port}/eureka
   instance:
     hostname: localhost
     appname: ${spring.application.name}
@@ -30,3 +34,4 @@ management:
 #logging:
 #  level:
 #    com: debug
+

@@ -3,14 +3,14 @@ spring:
   application:
     name: server-provider
 
-  cloud:
-    config:
-      discovery:
-        enabled: true
-        service-id: config-service
-      label: master
-      profile: dev
-      fail-fast: true
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: config-service
+#      label: master
+#      profile: dev
+#      fail-fast: true
   rabbitmq:
     port: 5672
     host: @extranet-ip@
@@ -19,7 +19,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://@extranet-ip@:8110/eureka/
+      defaultZone: http://admin:admin-eureka@local-ip-at@:8110/eureka/
   instance:
     lease-renewal-interval-in-seconds: 10 #每隔10秒发送一次心跳
     lease-expiration-duration-in-seconds: 20 #20m没收到心跳默认死亡
