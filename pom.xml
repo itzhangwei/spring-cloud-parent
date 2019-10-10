@@ -35,8 +35,14 @@
         <extranet-ip>106.13.162.44</extranet-ip>
         <local-ip>127.0.0.1</local-ip>
 
+
+        <!--ip地址，前面带有@用于安全认证的时候-->
+        <intranet-ip-at>@192.168.0.4</intranet-ip-at>
+        <extranet-ip-at>@106.13.162.44</extranet-ip-at>
+        <local-ip-at>@127.0.0.1</local-ip-at>
+
         <!--   依赖   -->
-        <spring-cloud-versoin>Greenwich.SR3</spring-cloud-versoin>
+        <spring-cloud-versoin>Greenwich.SR2</spring-cloud-versoin>
         <spring-boot-version>2.1.5.RELEASE</spring-boot-version>
         <slf4j-version>1.7.28</slf4j-version>
         <guava-version>16.0.1</guava-version>
