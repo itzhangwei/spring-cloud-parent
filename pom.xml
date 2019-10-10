@@ -33,9 +33,10 @@
         <!--ip地址-->
         <intranet-ip>192.168.0.4</intranet-ip>
         <extranet-ip>106.13.162.44</extranet-ip>
+        <local-ip>127.0.0.1</local-ip>
 
         <!--   依赖   -->
-        <spring-cloud-versoin>Greenwich.SR2</spring-cloud-versoin>
+        <spring-cloud-versoin>Greenwich.SR3</spring-cloud-versoin>
         <spring-boot-version>2.1.5.RELEASE</spring-boot-version>
         <slf4j-version>1.7.28</slf4j-version>
         <guava-version>16.0.1</guava-version>
@@ -244,25 +245,25 @@
     </build>
 
     <!-- 私服 -->
-    <repositories>
-        <repository>
-            <id>imx</id>
-            <name>maven-central</name>
-            <url>http://106.13.162.44:6081/repository/imx/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-    </repositories>
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>imx</id>-->
+<!--            <name>maven-central</name>-->
+<!--            <url>http://106.13.162.44:6081/repository/imx/</url>-->
+<!--            <snapshots>-->
+<!--                <enabled>true</enabled>-->
+<!--            </snapshots>-->
+<!--            <releases>-->
+<!--                <enabled>true</enabled>-->
+<!--            </releases>-->
+<!--        </repository>-->
+<!--    </repositories>-->
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>public</id>
-            <name>pluginRepo</name>
-            <url>http://106.13.162.44:6081/repository/imx/</url>
-        </pluginRepository>
-    </pluginRepositories>
+<!--    <pluginRepositories>-->
+<!--        <pluginRepository>-->
+<!--            <id>public</id>-->
+<!--            <name>pluginRepo</name>-->
+<!--            <url>http://106.13.162.44:6081/repository/imx/</url>-->
+<!--        </pluginRepository>-->
+<!--    </pluginRepositories>-->
 </project>
