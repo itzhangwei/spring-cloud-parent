@@ -23,7 +23,7 @@ spring:
   rabbitmq:
     username: admin
     password: '{cipher}542033addbecb5711f12d63db3cdb9c359b971350934dec72e1226ff2822afb3'
-    host: @intranet-ip@
+    host: @extranet-ip@
     port: 5672
 
 eureka:
@@ -36,7 +36,7 @@ eureka:
     hostname: @extranet-ip@
   client:
     service-url:
-      defaultZone: http://@intranet-ip@:8110/eureka/
+      defaultZone: http://admin:admin-eureka@extranet-ip-at@:8110/eureka/
 
 encrypt:
   key: ${spring.application.name}:${server.port}
