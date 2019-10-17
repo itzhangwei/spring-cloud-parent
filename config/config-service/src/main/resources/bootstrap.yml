@@ -33,14 +33,20 @@ eureka:
     lease-renewal-interval-in-seconds: 10 #每隔10秒向注册中心发布一次心跳，证明自己还活着
     instance-id: ${spring.application.name}:${server.port}
     prefer-ip-address: true #显示访问ip地址
-    hostname: @extranet-ip@
+    hostname: @local-ip@
   client:
     service-url:
-      defaultZone: http://admin:admin-eureka@extranet-ip-at@:8110/eureka/
+      defaultZone: http://admin:admin-eureka@local-ip-at@:8110/eureka/
 
 encrypt:
   key: ${spring.application.name}:${server.port}
 
+
+# 暴露端点 使用post  /actuator/bus-refresh 来刷新（含有@RefreshScope竹节），
+# 可在config服务上直接刷新全部客户端，也可在单个客户端执行，只刷新单个微服务
+# 客户端可以不提供端点暴露
+# @RefreshScope 注解如果添加在启动类头上，可以实现自定义配置类刷新，使用@Value的需要在使用的地方添加注解
+# 系统配置（数据库，项目路径，mq等依赖配置项），无法刷新
 management:
   endpoints:
     web:
