@@ -1,3 +1,6 @@
 properties:
   name: server-provider-dev-003
 
+server:
+  servlet:
+    context-path: /abc
