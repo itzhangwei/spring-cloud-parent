@@ -1,12 +1,12 @@
 properties:
-  name: server-provider-dev-007
+  name: server-provider-dev-008
 
 #server:
 #  servlet:
 #    context-path: /abc
 
-#myself:
-#  config:
-#    title: this is myself title
-#    article:
-#      well-known-saying: 万般皆下品，唯有读书高
+myself:
+  config:
+    title: this is myself title
+    article:
+      well-known-saying: 万般皆下品，唯有读书高
