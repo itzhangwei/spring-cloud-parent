@@ -1,0 +1,29 @@
+{
+  "groups": [
+    {
+      "name": "myself.config",
+      "type": "com.learn.server.config.properties.MySelfProperties",
+      "sourceType": "com.learn.server.config.properties.MySelfProperties"
+    },
+    {
+      "name": "myself.config.article",
+      "type": "com.learn.server.config.properties.MySelfProperties$Article",
+      "sourceType": "com.learn.server.config.properties.MySelfProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "myself.config.article.well-known-saying",
+      "type": "java.lang.String",
+      "description": "名言",
+      "sourceType": "com.learn.server.config.properties.MySelfProperties$Article"
+    },
+    {
+      "name": "myself.config.title",
+      "type": "java.lang.String",
+      "description": "标题",
+      "sourceType": "com.learn.server.config.properties.MySelfProperties"
+    }
+  ],
+  "hints": []
+}
