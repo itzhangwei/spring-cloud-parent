@@ -5,7 +5,7 @@ import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.config.server.EnableConfigServer;
 
 /**
- * @author zack.zhang
+ * @author zhang
  * @projectName spring-cloud-parent
  * @title ConfigServiceApplication
  * @package com.learn.config

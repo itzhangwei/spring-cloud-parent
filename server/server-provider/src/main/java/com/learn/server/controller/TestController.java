@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author zack.zhang
+ * @author zhang
  * @projectName spring-cloud-parent
  * @title TestController
  * @package com.learn.server.controller

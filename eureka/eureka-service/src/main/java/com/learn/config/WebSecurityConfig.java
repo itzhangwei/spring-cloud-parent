@@ -5,7 +5,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
- * @author zack.zhang
+ * @author zhang
  * @projectName spring-cloud-parent
  * @title WebSecurityConfig
  * @package com.learn.config

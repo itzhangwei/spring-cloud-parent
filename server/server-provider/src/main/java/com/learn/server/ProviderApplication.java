@@ -5,7 +5,7 @@ import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 /**
- * @author zack.zhang
+ * @author zhang
  * @projectName spring-cloud-parent
  * @title ProviderApplication
  * @package com.learn.server

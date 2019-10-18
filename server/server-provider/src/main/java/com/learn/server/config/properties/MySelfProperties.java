@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * 自定义配置
  *
- * @author zack.zhang
+ * @author zhang
  * @projectName spring-cloud-parent
  * @title MySelfProperties
  * @package com.learn.server.config.properties
