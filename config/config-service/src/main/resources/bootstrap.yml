@@ -36,7 +36,7 @@ eureka:
     hostname: @local-ip@
   client:
     service-url:
-      defaultZone: http://admin:admin-eureka@local-ip-at@:8110/eureka/
+      defaultZone: http://${spring.security.username:admin}:${spring.security.password-e:admin-eureka}@local-ip-at@:8110/eureka/
 
 encrypt:
   key: ${spring.application.name}:${server.port}
