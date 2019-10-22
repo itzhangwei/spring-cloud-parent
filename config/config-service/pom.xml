@@ -70,6 +70,10 @@
                     <artifactId>jackson-annotations</artifactId>
                     <groupId>com.fasterxml.jackson.core</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>rxjava</artifactId>
+                    <groupId>io.reactivex</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -129,20 +133,12 @@
                     <groupId>org.slf4j</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>spring-integration-core</artifactId>
-                    <groupId>org.springframework.integration</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>jackson-databind</artifactId>
                     <groupId>com.fasterxml.jackson.core</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-core</artifactId>
-        </dependency>
 
     </dependencies>
 

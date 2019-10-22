@@ -48,7 +48,15 @@
                     <artifactId>gson</artifactId>
                     <groupId>com.google.code.gson</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>rxjava</artifactId>
+                    <groupId>io.reactivex</groupId>
+                </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <artifactId>rxjava</artifactId>
+            <groupId>io.reactivex</groupId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -121,32 +129,6 @@
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>${docker.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <!--生成的镜像名成-->
-                    <imageName>${project.artifactId}</imageName>
-                    <imageTags>
-                        <imageTag>${project.version}</imageTag>
-                        <imageTag>latest</imageTag>
-                    </imageTags>
-                    <!--dockerfile目录-->
-                    <dockerDirectory>${project.basedir}</dockerDirectory>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
