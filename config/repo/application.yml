@@ -1,0 +1,6 @@
+spring:
+  security:
+    user:
+      name: admin
+      password: ${spring.application.name:admin-password}
+      password-e: admin-eureka
