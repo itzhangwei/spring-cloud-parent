@@ -1,0 +1,31 @@
+server:
+  port: 8410
+spring:
+  application:
+    name: gateway-server
+
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-service
+      label: master
+      profile: dev
+      fail-fast: true
+
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启根据serviceId创建路由的功能
+          lower-case-service-id: true #小写 serviceId
+
+eureka:
+  instance:
+    appname: ${spring.application.name}
+    lease-renewal-interval-in-seconds: 10 #每个10s发送此心跳
+    lease-expiration-duration-in-seconds: 30 #30s没有收到心跳即死亡
+  client:
+    register-with-eureka: true #注册到eureka上，被服务发现
+    fetch-registry: true #从eureka中获取注册中心
+    service-url:
+      defaultZone: http://${spring.security.user.name:admin}:${spring.security.user.password-e:admin-eureka}@local-ip-at@:8110/eureka
