@@ -43,3 +43,6 @@ management:
 myself:
   eureka:
     version: 19.10.18.1
+feign:
+  hystrix:
+    enabled: true

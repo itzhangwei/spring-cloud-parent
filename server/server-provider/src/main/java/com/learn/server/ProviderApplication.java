@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 
 /**
  * @author zhang
@@ -18,6 +19,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 @RefreshScope
 @SpringBootApplication(scanBasePackages = "com.learn.*")
 @SpringCloudApplication
+@EnableHystrixDashboard
 public class ProviderApplication {
 	
 	public static void main(String[] args) {

@@ -1,0 +1,28 @@
+server:
+  port: 8310
+spring:
+  application:
+    name: hystrix-server
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-service
+      fail-fast: true
+      label: master
+      profile: dev
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${spring.security.username:admin}:${spring.security.password-e:admin-eureka}@local-ip-at@:8110/eureka/
+  instance:
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 20
+    lease-renewal-interval-in-seconds: 10
+
+turbine:
+  app-config: server-provider #监控的服务
+  aggregator:
+    cluster-config: default
+  cluster-name-expression:  new String("default")
+  combine-host-port: true
