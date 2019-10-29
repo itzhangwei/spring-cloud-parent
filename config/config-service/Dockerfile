@@ -11,7 +11,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shangh
 
 EXPOSE $PORT_TO_EXPOSE
 
-ENTRYPOINT ["java","-Xms1g","-Xmx2g","-Djava.security.egd=file:/dev/./urandom","-jar","/config-service.jar"]
+ENTRYPOINT ["java","-Xmx2g","-Djava.security.egd=file:/dev/./urandom","-jar","/config-service.jar"]
 
 
 
