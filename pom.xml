@@ -12,6 +12,8 @@
         <module>config/config-service</module>
         <module>server/server-provider</module>
         <module>common</module>
+        <module>hystrix/hystrix-server</module>
+        <module>gateway/gateway-server</module>
     </modules>
     <packaging>pom</packaging>
 
