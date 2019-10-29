@@ -235,8 +235,8 @@
                         <!--生成的镜像名成-->
                         <imageName>${project.artifactId}</imageName>
                         <imageTags>
-                            <imageTag>${project.version}</imageTag>
-<!--                            <imageTag>latest</imageTag>-->
+<!--                            <imageTag>${project.version}</imageTag>-->
+                            <imageTag>latest</imageTag>
                         </imageTags>
                         <!--dockerfile目录-->
                         <dockerDirectory>${project.basedir}</dockerDirectory>
