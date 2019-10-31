@@ -33,7 +33,9 @@ eureka:
     lease-renewal-interval-in-seconds: 10 #每隔10秒向注册中心发布一次心跳，证明自己还活着
     instance-id: ${spring.application.name}:${server.port}
     prefer-ip-address: true #显示访问ip地址
-    hostname: @local-ip@
+    hostname: @extranet-ip@
+    ip-address: @extranet-ip@ #设置外网地址
+    non-secure-port: ${server.port}
   client:
     service-url:
       defaultZone: http://${spring.security.username:admin}:${spring.security.password-e:admin-eureka}@extranet-ip-at@:8110/eureka/
