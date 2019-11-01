@@ -21,7 +21,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://${spring.security.user.name:admin}:${spring.security.user.password-e:admin-eureka}@local-ip-at@:8110/eureka/
+      defaultZone: http://${spring.security.user.name:admin}:${spring.security.user.password-e:admin-eureka}@extranet-ip-at@:8110/eureka/
   instance:
     lease-renewal-interval-in-seconds: 10 #每隔10秒发送一次心跳
     lease-expiration-duration-in-seconds: 20 #20m没收到心跳默认死亡
