@@ -4,3 +4,6 @@ spring:
       name: admin
       password: ${spring.application.name:admin-password}
       password-e: admin-eureka
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: true #jackson返回date为日期时间戳
