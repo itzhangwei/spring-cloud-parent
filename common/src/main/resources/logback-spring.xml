@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration  scan="true" scanPeriod="60 seconds" debug="false">
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
 
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <!--读取配置中心的属性-->
     <springProperty scope="context" name="name" source="spring.application.name"/>
 
-    <property name="LOG_HOME" value="./logs" />
+    <property name="LOG_HOME" value="./logs"/>
 
     <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-    <property name="CONSOLE_LOG_PATTERN_FILE" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %clr(${LOG_LEVEL_PATTERN:-%5p}) %logger{50}:%L - %msg%n"/>
+    <property name="CONSOLE_LOG_PATTERN_FILE"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %clr(${LOG_LEVEL_PATTERN:-%5p}) %logger{50}:%L - %msg%n"/>
 
 
     <!--输出到控制台-->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-             <level>debug</level>
-         </filter>
+<!--    <appender name="console" class="com.learn.common.util.LogAppender">-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+        </filter>
         <encoder>
             <pattern>
                 ${CONSOLE_LOG_PATTERN}
@@ -25,7 +27,7 @@
     </appender>
 
     <!--输出到文件-->
-    <appender name="fileLog"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="fileLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>error</level>
         </filter>
@@ -41,13 +43,115 @@
         </encoder>
     </appender>
 
+    <!-- 日志在工程中的输出位置 -->
+    <property name="LOG_FILE" value="${LOG_HOME}/${name}"/>
+
+    <!-- 为logstash输出的JSON格式的Appender -->
+    <appender name="logstash"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名 -->
+            <fileNamePattern>${LOG_HOME}/${name}-%d{yyyy-MM-dd}.json</fileNamePattern>
+            <!--日志文件保留天数 -->
+            <MaxHistory>3</MaxHistory>
+        </rollingPolicy>
+        <!-- 日志输出编码 -->
+        <encoder
+                class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>Asia/Shanghai</timeZone>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                        "severity": "%level",
+                        "service": "${name:-}",
+                        "trace": "%X{X-B3-TraceId:-}",
+                        "span": "%X{X-B3-SpanId:-}",
+                        "exportable": "%X{X-Span-Export:-}",
+                        "pid": "${PID:-}",
+                        "thread": "%thread",
+                        "class": "%logger{40}",
+                        "rest": "%message"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <appender name="mongodb" class="com.learn.common.util.LogAppender">
+
+        <!-- 日志输出编码 -->
+        <encoder
+                class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>Asia/Shanghai</timeZone>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                        "timestamp":"%d{yyyy-MM-dd HH:mm:ss.SSS}",
+                        "severity": "%level",
+                        "service": "${name:-}",
+                        "trace": "%X{X-B3-TraceId:-}",
+                        "span": "%X{X-B3-SpanId:-}",
+                        "exportable": "%X{X-Span-Export:-}",
+                        "pid": "${PID:-}",
+                        "thread": "%thread",
+                        "className": "%logger{40}",
+                        "message": "%message"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- 为logstash输出的JSON格式的Appender -->
+<!--    <appender name="logstash2"-->
+<!--              class="net.logstash.logback.appender.LogstashTcpSocketAppender">-->
+<!--        <destination>106.13.162.44:9600</destination>-->
+<!--        &lt;!&ndash; 日志输出编码 &ndash;&gt;-->
+<!--        <encoder-->
+<!--                class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">-->
+<!--            <providers>-->
+<!--                <timestamp>-->
+<!--                    <timeZone>UTC</timeZone>-->
+<!--                </timestamp>-->
+<!--                <pattern>-->
+<!--                    <pattern>-->
+<!--                        {-->
+<!--                        "severity": "%level",-->
+<!--                        "service": "${name:-}",-->
+<!--                        "trace": "%X{X-B3-TraceId:-}",-->
+<!--                        "span": "%X{X-B3-SpanId:-}",-->
+<!--                        "exportable": "%X{X-Span-Export:-}",-->
+<!--                        "pid": "${PID:-}",-->
+<!--                        "thread": "%thread",-->
+<!--                        "class": "%logger{40}",-->
+<!--                        "rest": "%message"-->
+<!--                        }-->
+<!--                    </pattern>-->
+<!--                </pattern>-->
+<!--            </providers>-->
+<!--        </encoder>-->
+
+<!--    </appender>-->
     <root level="info">
-        <appender-ref ref="console" />
-<!--        日志输出文件 -->
-        <appender-ref ref="fileLog" />
+        <appender-ref ref="console"/>
+        <!--        日志输出文件 -->
+        <appender-ref ref="fileLog"/>
+        <appender-ref ref="logstash"/>
+        <appender-ref ref="mongodb"/>
+<!--        <appender-ref ref="logstash2"/>-->
+
     </root>
 
-    <logger name="com.learn.dao" level="info" />
+    <logger name="com.learn.dao" level="info"/>
 
     <logger name="java.sql.Connection" level="INFO"/>
     <logger name="java.sql.Statement" level="INFO"/>

@@ -18,6 +18,11 @@ spring:
     host: @extranet-ip@
     username: admin
     password: admin-rabbitmq #'{cipher}2a844fefdd91080cee2a7f3f328abede624aaaa17b1822ff532273a681813c20'
+  data:
+    mongodb:
+      host: @extranet-ip@
+      port: 27017
+      database: tools
 eureka:
   client:
     service-url:
