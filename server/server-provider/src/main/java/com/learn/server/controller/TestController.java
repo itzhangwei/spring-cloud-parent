@@ -5,7 +5,10 @@ import com.learn.common.entity.LogEntity;
 import com.learn.common.mongodb.dao.LogRepository;
 import com.learn.server.config.properties.MySelfProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -25,7 +28,7 @@ public class TestController {
 	@Autowired
 	private LogRepository logRepository;
 	
-	@GetMapping
+	@GetMapping("/test")
 	public String test() {
 		insertLog();
 		return "title:"+this.mySelfProperties.getTitle()+"\n well-known Saying:"+this.mySelfProperties.getArticle().getWellKnownSaying();
@@ -35,5 +38,11 @@ public class TestController {
 		String json = "{\"@timestamp\":\"2019-11-14T10:26:48.966+08:00\",\"severity\":\"INFO\",\"service\":\"server-provider\",\"trace\":\"\",\"span\":\"\",\"exportable\":\"\",\"pid\":\"16298\",\"thread\":\"main\",\"class\":\"com.netflix.discovery.DiscoveryClient\",\"rest\":\"Completed shut down of DiscoveryClient\"}\n";
 		LogEntity logEntity = JSON.parseObject(json, LogEntity.class);
 		this.logRepository.insert(logEntity);
+	}
+	
+	@PostMapping(value = "/find")
+	private Page<LogEntity> find(){
+		PageRequest pageRequest = PageRequest.of(2,10);
+		return this.logRepository.findAll(pageRequest);
 	}
 }
