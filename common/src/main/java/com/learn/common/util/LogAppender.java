@@ -9,12 +9,6 @@ import com.learn.common.mongodb.dao.LogRepository;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeansException;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 
 /**
  * @author zhang
@@ -30,14 +24,11 @@ import org.springframework.stereotype.Component;
 @EqualsAndHashCode(callSuper = true)
 @Slf4j
 @Data
-@Component
-public class LogAppender extends OutputStreamAppender implements ApplicationRunner, ApplicationContextAware {
+public class LogAppender extends OutputStreamAppender {
 	
 	private  LogRepository logRepository;
 	
 	private ConsoleTarget target = ConsoleTarget.SystemOut;
-	
-	private  ApplicationContext applicationContext;
 	
 	@Override
 	protected void append(Object eventObject) {
@@ -45,9 +36,14 @@ public class LogAppender extends OutputStreamAppender implements ApplicationRunn
 			
 			// log日志加载要早于项目 spring 类加载，导致项目没有加载完成的日志无法输入到mongodb
 			if (this.logRepository == null) {
+				
+				if (ApplicationContestUtil.getContext() != null) {
+					
+					// 当spring加载完成之后，ApplicationContestUtil.getContext()才会有值
+					this.logRepository = ApplicationContestUtil.getContext().getBean(LogRepository.class);
+				}
 				return;
 			}
-			
 			Encoder encoder = this.getEncoder();
 			// 日志编码
 			byte[] encode = encoder.encode(eventObject);
@@ -74,23 +70,4 @@ public class LogAppender extends OutputStreamAppender implements ApplicationRunn
 		super.start();
 	}
 	
-	/**
-	 * spirng boot项目加载完成后执行方法，这里为了在spirng加载完成后，把 LogRepository 注入
-	 * @param args
-	 * @throws Exception
-	 */
-	@Override
-	public void run(ApplicationArguments args) throws Exception {
-		System.out.println("加载完成");
-		if (this.applicationContext == null) {
-			return;
-		}
-		
-		this.logRepository = this.applicationContext.getBean(LogRepository.class);
-	}
-	
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		this.applicationContext = applicationContext;
-	}
 }
