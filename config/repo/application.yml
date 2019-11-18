@@ -1,4 +1,9 @@
 spring:
+  data:
+    mongodb:
+      host: @extranet-ip@
+      port: 27017
+      database: tools
   security:
     user:
       name: admin
@@ -7,8 +12,3 @@ spring:
   jackson:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: true #jackson返回date为日期时间戳
-  data:
-    mongodb:
-      database: tools
-      host: @extranet-ip@
-      port: 27017
