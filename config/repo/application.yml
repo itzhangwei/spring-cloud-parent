@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      host: @extranet-ip@
+      host: 106.13.162.44
       port: 27017
       database: tools
   security:
