@@ -56,10 +56,8 @@ public class LogAppender extends OutputStreamAppender {
 			logRepository.insert(logEntity);
 			
 		} catch (Exception e) {
-			
-			log.error("日志插入mongodb失败", e);
-			
-			e.printStackTrace();
+			// 当Spring关闭的时候，连接关闭，在入库会有相印的错误
+			log.error("日志插入mongodb失败", e.getMessage());
 		}
 		
 	}
