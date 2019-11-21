@@ -28,4 +28,4 @@ eureka:
     register-with-eureka: true #注册到eureka上，被服务发现
     fetch-registry: true #从eureka中获取注册中心
     service-url:
-      defaultZone: http://${spring.security.user.name:admin}:${spring.security.user.password-e:admin-eureka}@local-ip-at@:8110/eureka
+      defaultZone: http://${spring.security.user.name:admin}:${spring.security.user.password-e:admin-eureka}@extranet-ip-at@:8110/eureka
