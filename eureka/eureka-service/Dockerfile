@@ -21,5 +21,5 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shangh
 # 暴露端口
 EXPOSE $PORT_TO_EXPOSE
 
-# 入口,运行镜像
-ENTRYPOINT ["java","-Xms1g","-Xmx2g","-Djava.security.egd=file:/dev/./urandom","-jar","/eureka.jar"]
+# 入口,运行镜像 ,"-Xms1g","-Xmx2g"
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/eureka.jar"]
