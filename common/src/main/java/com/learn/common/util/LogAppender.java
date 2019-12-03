@@ -33,31 +33,28 @@ public class LogAppender extends OutputStreamAppender {
 	@Override
 	protected void append(Object eventObject) {
 		try {
-			
-			// log日志加载要早于项目 spring 类加载，导致项目没有加载完成的日志无法输入到mongodb
-			if (this.logRepository == null) {
-				
-				if (ApplicationContestUtil.getContext() != null) {
+				// log日志加载要早于项目 spring 类加载，导致项目没有加载完成的日志无法输入到mongodb
+				if (this.logRepository == null) {
+					if (ApplicationContestUtil.getContext() != null) {
+						// 当spring加载完成之后，ApplicationContestUtil.getContext()才会有值
+						this.logRepository = ApplicationContestUtil.getContext().getBean(LogRepository.class);
+					}
 					
-					// 当spring加载完成之后，ApplicationContestUtil.getContext()才会有值
-					this.logRepository = ApplicationContestUtil.getContext().getBean(LogRepository.class);
+					if (this.logRepository == null) {
+						return;
+					}
 				}
-				return;
-			}
-			Encoder encoder = this.getEncoder();
-			// 日志编码
-			byte[] encode = encoder.encode(eventObject);
-			
-			// 转换字符串，json
-			String s = new String(encode);
-			
-			LogEntity logEntity = JSON.parseObject(s, LogEntity.class);
-			
-			logRepository.insert(logEntity);
-			
-		} catch (Exception e) {
+				Encoder encoder = this.getEncoder();
+				// 日志编码
+				byte[] encode = encoder.encode(eventObject);
+				// 转换字符串，json
+				String s = new String(encode);
+				LogEntity logEntity = JSON.parseObject(s, LogEntity.class);
+				logRepository.insert(logEntity);
+				
+			} catch (Exception e) {
 			// 当Spring关闭的时候，连接关闭，在入库会有相印的错误
-			log.error("日志插入mongodb失败", e.getMessage());
+			log.error("日志插入mongodb失败,{}", e.getMessage());
 		}
 		
 	}
