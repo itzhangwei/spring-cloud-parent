@@ -27,10 +27,10 @@ public class LogService {
 		
 	}
 	
-	@Scheduled(fixedDelay = 3000)
-	public void scheduledWork() throws InterruptedException {
-		log.info("{}=====计划任务进行日志输出--开始=====", this.getClass().getName());
-		TimeUnit.SECONDS.sleep(5);
-		log.info("{}=====计划任务进行日志输出--结束=====", this.getClass().getName());
-	}
+//	@Scheduled(fixedDelay = 3000)
+//	public void scheduledWork() throws InterruptedException {
+//		log.info("{}=====计划任务进行日志输出--开始=====", this.getClass().getName());
+//		TimeUnit.SECONDS.sleep(5);
+//		log.info("{}=====计划任务进行日志输出--结束=====", this.getClass().getName());
+//	}
 }
