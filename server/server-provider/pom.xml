@@ -167,9 +167,19 @@
 
     <build>
         <plugins>
+            <!--
+                plugins 中是按顺序执行的，顺序反了必然会出现问题,需要先包好，在dockerBuild，
+                否则出现镜像运行找不到main方法
+            -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!--docker插件，需要具体到项目 -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
