@@ -30,8 +30,11 @@ import java.util.Map;
 @RestController
 public class EurekaController {
 	
-	@Autowired
-	private DiscoveryClient discoveryClient;
+	private final DiscoveryClient discoveryClient;
+	
+	public EurekaController(DiscoveryClient discoveryClient) {
+		this.discoveryClient = discoveryClient;
+	}
 	
 	@GetMapping("getEurekaService")
 	public HashMap<String, List<Map<String, String>>> getEurekaService() {
@@ -43,7 +46,7 @@ public class EurekaController {
 		
 		// 获取到所有注册服务的instancesId（实例ID）集合, 这里获得是的appname集合
 		List<String> services = discoveryClient.getServices();
-		log.info("通过DiscoveryClient获取所有注册服务的实例ID集合：{}", JSON.toJSONString(services));
+		log.debug("通过DiscoveryClient获取所有注册服务的实例ID集合：{}", JSON.toJSONString(services));
 		
 		
 		// 通过实例ID，获取服务
@@ -56,13 +59,13 @@ public class EurekaController {
 			// 通过appName获取服务集合，每一个不同名称下面可能会有高可用的集群，灰度发布的同一个服务的不同版本号的情况
 			List<ServiceInstance> instances = discoveryClient.getInstances(s);
 			
-			log.info("通过微服务实例ID获取到的集合数据:{}", JSON.toJSONString(instances));
+			log.debug("通过微服务实例ID获取到的集合数据:{}", JSON.toJSONString(instances));
 			
 			instances.forEach(i->{
 				// 收集服务的 端口，ip，版本号
 				Map<String, String> instanceInfo = new HashMap<>(16);
 				
-				log.info("单个微服务实例信息：{}", JSON.toJSONString(i));
+				log.debug("单个微服务实例信息：{}", JSON.toJSONString(i));
 				
 				// ip地址
 				instanceInfo.put("host",i.getHost());
@@ -77,7 +80,7 @@ public class EurekaController {
 				
 				instanceInfo.put("version",version);
 				
-				log.info("version:{}",version);
+				log.debug("version:{}",version);
 				
 				instancesList.add(instanceInfo);
 			});
