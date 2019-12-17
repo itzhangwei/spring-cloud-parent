@@ -55,10 +55,10 @@ public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
 		
 		
 		// 获取用户携带的版本号
-		String version = headers.getFirst("version");
+			String version = headers.getFirst("version");
 		
 		if (StringUtils.isEmpty(version)) {
-			super.choose(exchange);
+			return super.choose(exchange);
 		}
 		
 		log.info("从请求头中获取token：{},\n从请求头中获取到的 version 版本号：{}",token,version);
@@ -84,7 +84,7 @@ public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
 			
 			// 没有找到对应版本号的服务，
 			if (versionSer.size() == 0) {
-				super.choose(exchange);
+				return super.choose(exchange);
 			}
 			
 			// 找到对应版本好的服务。。。
