@@ -2,7 +2,6 @@ package com.learn.gateway.client;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -29,13 +28,13 @@ import java.util.stream.Collectors;
 @Component
 public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
 	
-	@Autowired
-	private DiscoveryClient discoveryClient;
+	private final DiscoveryClient discoveryClient;
 	
 	private static final String VERSION_KEY = "myself.eureka.version";
 	
-	public GrayLoadBalancerClientFilter(LoadBalancerClient loadBalancer, LoadBalancerProperties properties) {
+	public GrayLoadBalancerClientFilter(LoadBalancerClient loadBalancer, LoadBalancerProperties properties, DiscoveryClient discoveryClient) {
 		super(loadBalancer, properties);
+		this.discoveryClient = discoveryClient;
 	}
 	
 	/**
@@ -61,7 +60,7 @@ public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
 			return super.choose(exchange);
 		}
 		
-		log.info("从请求头中获取token：{},\n从请求头中获取到的 version 版本号：{}",token,version);
+		log.debug("从请求头中获取token：{},\t从请求头中获取到的 version 版本号：{}",token,version);
 		
 		// 获取用户获取的项目serviceId
 		URI uri = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR);
@@ -69,11 +68,11 @@ public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
 		assert uri != null;
 		String instancesId = uri.getHost();
 		
-		log.info("请求的服务的instancesId:{}",instancesId);
+		log.debug("请求的服务的instancesId:{}",instancesId);
 		
 		// 获取服务的信息
 		List<ServiceInstance> instances = discoveryClient.getInstances(instancesId);
-		log.info("从eureka中获取的服务instances为:{}", instances);
+		log.debug("从eureka中获取的服务instances为:{}", instances);
 		
 		// 通过version查找到服务
 		if (instances != null && instances.size()>0) {
