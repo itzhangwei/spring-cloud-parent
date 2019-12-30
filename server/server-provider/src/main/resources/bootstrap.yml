@@ -30,6 +30,7 @@ eureka:
     # ${spring.cloud.client.ip-address} ip地址还是要加的，不然同名的服务，端口相同的不同主机注册过来就唧唧了
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
     prefer-ip-address: true
+    extranet-ip-show: true
 server:
   port: 8810
 
@@ -42,9 +43,14 @@ management:
       exposure:
         include: "*"
 
-#myself:
-#  eureka:
-#    version: 19.10.18.1
+myself:
+  eureka:
+    version: 19.10.18.1
 feign:
   hystrix:
     enabled: true
+
+logging:
+  level:
+    com.learn.*: debug
+

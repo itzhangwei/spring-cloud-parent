@@ -25,15 +25,15 @@ public class HelloController {
 	@Value("${properties.name}")
 	private String propertiesName;
 	
-	@Autowired
-	private LogService logService;
+	private final LogService logService;
+	
+	public HelloController(LogService logService) {
+		this.logService = logService;
+	}
 	
 	@GetMapping("hello")
 	public String hello() throws InterruptedException {
-		log.info("hello");
-		logService.infoLog();
-		log.info("hello-end");
-		return "hello, properties name is :" + propertiesName;
+		return "hello, properties name is :" + propertiesName + "我是灰度服务，哈哈哈哈哈";
 	}
 	
 	

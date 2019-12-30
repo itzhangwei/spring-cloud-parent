@@ -3,6 +3,7 @@ package com.learn.common.config;
 import com.learn.common.util.IpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.commons.util.InetUtils;
 import org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean;
 import org.springframework.context.annotation.Primary;
@@ -22,9 +23,15 @@ import org.springframework.stereotype.Component;
 @Component
 @Primary
 @Slf4j
+@ConfigurationProperties("eureka.instance")
 public class IpEureka extends EurekaInstanceConfigBean {
 	
 	private final ConfigurableEnvironment env;
+	
+	/**
+	 * 是否显示外网ip
+	 */
+	private boolean extranetIpShow = false;
 	
 	public IpEureka(InetUtils inetUtils, ConfigurableEnvironment env ) {
 		super(inetUtils);
@@ -33,6 +40,9 @@ public class IpEureka extends EurekaInstanceConfigBean {
 	
 	@Override
 	public void setInstanceId(String instanceId) {
+		if (!extranetIpShow) {
+			return;
+		}
 		
 		//获取本机器ip
 		String localIp = IpUtil.getLocalIp();
@@ -61,6 +71,9 @@ public class IpEureka extends EurekaInstanceConfigBean {
 	
 	@Override
 	public void setIpAddress(String ipAddress) {
+		if (!extranetIpShow) {
+			return;
+		}
 		//获取本机器ip
 		String localIp = IpUtil.getLocalIp();
 		
@@ -70,5 +83,13 @@ public class IpEureka extends EurekaInstanceConfigBean {
 			log.debug("ip地址替换，{} ===> {}", ipAddress, localIp);
 		}
 		super.setIpAddress(ipAddress);
+	}
+	
+	public boolean getExtranetIpShow() {
+		return extranetIpShow;
+	}
+	
+	public void setExtranetIpShow(boolean extranetIpShow) {
+		this.extranetIpShow = extranetIpShow;
 	}
 }
