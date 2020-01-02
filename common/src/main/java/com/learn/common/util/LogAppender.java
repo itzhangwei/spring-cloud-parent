@@ -35,9 +35,9 @@ public class LogAppender extends OutputStreamAppender {
 		try {
 				// log日志加载要早于项目 spring 类加载，导致项目没有加载完成的日志无法输入到mongodb
 				if (this.logRepository == null) {
-					if (ApplicationContexttUtil.getContext() != null) {
+					if (ApplicationContextUtil.getContext() != null) {
 						// 当spring加载完成之后，ApplicationContestUtil.getContext()才会有值
-						this.logRepository = ApplicationContexttUtil.getContext().getBean(LogRepository.class);
+						this.logRepository = ApplicationContextUtil.getContext().getBean(LogRepository.class);
 					}
 					
 					if (this.logRepository == null) {

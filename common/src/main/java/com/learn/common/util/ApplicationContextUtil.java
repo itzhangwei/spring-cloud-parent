@@ -15,16 +15,16 @@ import org.springframework.stereotype.Component;
  * ApplicationContextAware 在spring加载完成执行 setApplicationContext，并且提供 ApplicationContext参数对象。
  */
 @Component
-public class ApplicationContexttUtil implements ApplicationContextAware {
+public class ApplicationContextUtil implements ApplicationContextAware {
 	
 	 private static ApplicationContext applicationContext;
 	
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		ApplicationContexttUtil.applicationContext = applicationContext;
+		ApplicationContextUtil.applicationContext = applicationContext;
 	}
 	
 	public static ApplicationContext getContext(){
-		return ApplicationContexttUtil.applicationContext;
+		return ApplicationContextUtil.applicationContext;
 	}
 }
