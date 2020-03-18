@@ -61,7 +61,7 @@ public class IpEureka extends EurekaInstanceConfigBean {
 			
 			// 设置端口
 			int serverPort = Integer
-					.valueOf(env.getProperty("server.port", env.getProperty("port", "8080")));
+					.parseInt(env.getProperty("server.port", env.getProperty("port", "8080")));
 			
 			super.setNonSecurePort(serverPort);
 		}
