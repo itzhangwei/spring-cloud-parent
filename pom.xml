@@ -55,6 +55,10 @@
         <spring-integration-core-version>5.1.7.RELEASE</spring-integration-core-version>
         <fastjson-version>1.2.62</fastjson-version>
         <rxjava-version>1.3.8</rxjava-version>
+        <mysql-version>8.0.16</mysql-version>
+        <mybatis-plus-boot-version>3.3.1</mybatis-plus-boot-version>
+        <dynamic-datasource-spring-boot-starter-version>3.0.0</dynamic-datasource-spring-boot-starter-version>
+        <druid-version>1.1.22</druid-version>
 
     </properties>
 
@@ -211,6 +215,36 @@
                 <artifactId>spring-boot-starter-data-mongodb</artifactId>
                 <version>${spring-boot-version}</version>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>3.3.1</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter -->
+            <!--     多数据源       -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>${dynamic-datasource-spring-boot-starter-version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid-version}</version>
+            </dependency>
+
         </dependencies>
 
     </dependencyManagement>
