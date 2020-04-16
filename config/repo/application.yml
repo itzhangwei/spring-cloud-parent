@@ -38,3 +38,10 @@ spring:
             max-open-prepared-statements: 100
             filters: stat,wall
             share-prepared-statements: true
+        tools:
+          username: dev_tools
+          password: dev_tools
+          url: jdbc:mysql://pipiwanshui.mysql.rds.aliyuncs.com:3306/learn-tools?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          druid: #以下均为默认值
+            validation-query: select 1 FROM DUAL
