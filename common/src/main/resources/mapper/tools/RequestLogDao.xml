@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.learn.common.db.dao.tools.RequestLogDao">
+
+    <update id="createTable">
+        CREATE TABLE ${tableName}
+        (
+            `id`                  int(11)                                                       NOT NULL AUTO_INCREMENT,
+            `start_time`          datetime(0)                                                   NULL DEFAULT NULL COMMENT '开始时间',
+            `end_time`            datetime(0)                                                   NULL DEFAULT NULL COMMENT '结束时间',
+            `duration`            int(11)                                                       NULL DEFAULT NULL COMMENT '耗时，毫秒',
+            `application_name`    varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '服务名称',
+            `rest_uri`            varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '后端请求uri',
+            `status`              int(11)                                                       NOT NULL COMMENT 'http状态码',
+            `content_type`        varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '请求头类型',
+            `header`              text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NULL COMMENT '请求头参数',
+            `request_body`        mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci   NULL COMMENT '请求体参数',
+            `response_body`       mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci   NULL COMMENT '响应体参数',
+            `req_id`              varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '链路码ID',
+            `user_name`           varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '账号用户名',
+            `version_control`     varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '版本号',
+            `web_version_control` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '前端版本号',
+            `method`              varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT 'http请求类型',
+            `query_string`        varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+            `user_agent`          text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NULL,
+            `protocol`            varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL,
+            `rest_url`            varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求url',
+            `port_number`         int(11)                                                       NULL DEFAULT NULL COMMENT '服务端口',
+            `remote_addr`         varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '远程ip地址',
+            `remote_host`         varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '地址',
+            `remote_port`         int(11)                                                       NULL DEFAULT NULL COMMENT '端口',
+            PRIMARY KEY (`id`) USING BTREE,
+            INDEX `index_duration` (`duration`) USING BTREE,
+            INDEX `index_user_name` (`user_name`) USING BTREE,
+            INDEX `index_req_id` (`req_id`) USING BTREE,
+            INDEX `index_rest_uri` (`rest_uri`) USING BTREE,
+            INDEX `index_application_name` (`application_name`) USING BTREE,
+            INDEX `index_start_time` (`start_time`) USING BTREE,
+            INDEX `index_status` (`status`) USING BTREE
+        ) ENGINE = InnoDB
+          AUTO_INCREMENT = 0
+          CHARACTER SET = utf8mb4
+          COLLATE = utf8mb4_general_ci COMMENT = '请求日志记录表'
+          ROW_FORMAT = Compact
+    </update>
+</mapper>

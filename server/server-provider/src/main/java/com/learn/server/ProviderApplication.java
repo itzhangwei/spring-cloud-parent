@@ -1,5 +1,6 @@
 package com.learn.server;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
@@ -25,6 +26,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @SpringCloudApplication
 @EnableHystrixDashboard
 @EnableMongoRepositories(basePackages = "com.learn.common.mongodb.dao")
+@MapperScan("com.learn.common.db.dao.*")
 public class ProviderApplication {
 	
 	public static void main(String[] args) {
