@@ -14,13 +14,13 @@ import lombok.Data;
 public class RequestLog {
 	public Integer id;
 	public Long duration;
-	public String userId;
 	public String requestBody;
 	public String responseBody;
+	public String header;
 	public String applicationName;
 	public String restUri;
 	public String restUrl;
-	public Long logTime;
+	public Long endTime;
 	public String remoteAddr;
 	public String remoteHost;
 	public int remotePort;
@@ -31,8 +31,10 @@ public class RequestLog {
 	public String method;
 	public String userAgent;
 	public String reqId;
-	public String ver;
+	public String userName;
 	public String queryString;
 	public String contentType;
+	public String versionControl;
+	public String webVersionControl;
 	
 }
