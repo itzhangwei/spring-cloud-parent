@@ -2,6 +2,8 @@ package com.learn.common.entity.db.tools;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author zhang
  * @projectName spring-cloud-parent
@@ -11,7 +13,7 @@ import lombok.Data;
  * @date 2020/4/16 10:29 上午
  */
 @Data
-public class RequestLog {
+public class RequestLog implements Serializable {
 	public Integer id;
 	public Long duration;
 	public String requestBody;
