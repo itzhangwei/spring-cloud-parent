@@ -4,6 +4,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidPooledConnection;
 import com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl;
 import com.alibaba.druid.proxy.jdbc.DataSourceProxy;
+import com.gymbomate.base.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.statement.RoutingStatementHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
@@ -20,7 +21,6 @@ import java.sql.Connection;
 import java.util.LinkedHashMap;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicReference;
-import com.gymbomate.base.util.StringUtil;
 /**
  * @author zhang
  * @projectName spring-cloud-parent
