@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
-import static com.learn.common.share.table.StrategyParam.*;
+import static com.learn.common.share.table.StrategyParam.YearAndMouth;
 
 
 
