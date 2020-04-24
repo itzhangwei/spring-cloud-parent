@@ -35,7 +35,7 @@ public interface  RequestLogDao extends BaseMapper<RequestLog> {
 	 * @createTime 2020/4/16 11:57 上午
 	 */
 	@Select("SELECT COUNT(1) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='request_log'")
-	int existTable(@Param("tableName") String tableName);
+	int existTable();
 	
 	/**
 	 * 创建表 <BR>
