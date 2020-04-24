@@ -3,10 +3,12 @@ package com.learn.common.filter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.learn.common.config.RabbitMqConfig;
-import com.learn.common.db.dao.tools.RequestLogDao;
 import com.learn.common.entity.BodyCachingHttpServletResponseWrapper;
 import com.learn.common.entity.db.tools.RequestLog;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageBuilder;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Date;
 import java.util.Enumeration;
 
 /**
@@ -28,17 +31,15 @@ import java.util.Enumeration;
  * @description 拦截请求参数
  * @date 2020/4/16 3:41 下午
  */
-@Slf4j(topic = "♦️♦️♦️♦️♦️♦️♦️♦️请求日志拦截类【RequestLogFilter】♦️♦️♦️♦️♦️♦️♦️♦️")
+@Slf4j(topic = "♦️♦️♦️♦️️请求日志拦截类【RequestLogFilter】♦️♦️♦️♦️")
 @Component
 public class RequestLogFilter implements Filter {
 	
-	private final RequestLogDao requestLogDao;
 	private final RabbitTemplate rabbitTemplate;
 	@Value("${spring.application.name:unknown}")
 	private  String  applicationName;
 	
-	public RequestLogFilter(RequestLogDao requestLogDao, RabbitTemplate rabbitTemplate) {
-		this.requestLogDao = requestLogDao;
+	public RequestLogFilter(RabbitTemplate rabbitTemplate) {
 		this.rabbitTemplate = rabbitTemplate;
 	}
 	/**
@@ -74,7 +75,9 @@ public class RequestLogFilter implements Filter {
 			//做成异步
 			if (!requestWrapper.getRequestURI().contains("favicon.ico")) {
 				final RequestLog requestLog = this.getRequestLog(start, requestWrapper, responseWrapper);
-				rabbitTemplate.convertAndSend(RabbitMqConfig.REQUEST_LOG_QUEUE,requestLog);
+				final Message message = MessageBuilder.withBody(JSON.toJSONString(requestLog).getBytes()).setContentType(MessageProperties.CONTENT_TYPE_JSON).build();
+				rabbitTemplate.convertAndSend(RabbitMqConfig.REQUEST_LOG_QUEUE,message);
+				log.info("日志投递完成！");
 			}
 			
 		}
@@ -96,8 +99,8 @@ public class RequestLogFilter implements Filter {
 		requestLog.applicationName = applicationName;
 		requestLog.contentType=requestWrapper.getContentType();
 		requestLog.duration = endTime - start;
-		requestLog.startTime = start;
-		requestLog.endTime = endTime;
+		requestLog.startTime = new Date(start);
+		requestLog.endTime = new Date(endTime);
 		requestLog.remoteHost = requestWrapper.getRemoteHost();
 		requestLog.remotePort = requestWrapper.getRemotePort();
 		requestLog.protocol = requestWrapper.getProtocol();
