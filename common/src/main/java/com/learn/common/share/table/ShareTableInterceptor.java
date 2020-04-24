@@ -93,8 +93,8 @@ public class ShareTableInterceptor implements Interceptor {
 		// 实现分表规则
 		String newSql = this.doShareRules(sql, shareTableTarget);
 		
-		log.info("❤❤❤❤❤❤分表前sql语句为：{}",sql);
-		log.info("☆☆☆☆☆分表后sql语句为：{}",newSql);
+		log.info("❤❤❤❤❤❤分表前sql语句为：{}",sql.replace("\n",""));
+		log.info("☆☆☆☆☆分表后sql语句为：{}",newSql.replace("\n",""));
 		
 		//设置新的sql语句
 		metaObject.setValue("delegate.boundSql.sql",newSql);
