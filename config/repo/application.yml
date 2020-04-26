@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: seata,mq
   data:
     mongodb:
       host: 106.13.162.44
@@ -14,6 +16,7 @@ spring:
       WRITE_DATES_AS_TIMESTAMPS: true #jackson返回date为日期时间戳
   datasource:
     dynamic:
+      seata: true
       primary: master
       datasource:
         master:
@@ -45,3 +48,7 @@ spring:
           driver-class-name: com.mysql.cj.jdbc.Driver
           druid: #以下均为默认值
             validation-query: select 1 FROM DUAL
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: my_test_tx_group #必须，和file.conf里配置对应上,详情自行了解seata。

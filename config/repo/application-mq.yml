@@ -1,0 +1,21 @@
+spring:
+  rabbitmq:
+    port: 5672
+    host: @extranet-ip@
+    username: admin
+    password: admin-rabbitmq #'{cipher}2a844fefdd91080cee2a7f3f328abede624aaaa17b1822ff532273a681813c20'
+    publisher-confirms: true #消息发送到交换器确认
+    publisher-returns: true #消息发送到队列确认
+    listener:
+      direct:
+        acknowledge-mode: manual #开启手动ack操作
+      simple:
+        acknowledge-mode: manual #开启手动ack操作
+        prefetch: 200 #在每个使用者处可以挂起的未确认消息的最大数目
+        concurrency: 1 #指定最小的消费者数量.
+        max-concurrency: 1 #指定最大的消费者数量.
+        retry:
+          max-attempts: 3 #最大重试次数
+          enabled: true #是否开启消费者重试（为false时关闭消费者重试，这时消费端代码异常会一直重复收到消息）
+          initial-interval: 3000 #重试间隔时间（单位毫秒）
+        default-requeue-rejected: false #重试次数超过上面的设置之后是否丢弃（false不丢弃时需要写相应代码将该消息加入死信队列）
