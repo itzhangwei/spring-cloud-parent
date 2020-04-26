@@ -11,6 +11,7 @@ import org.springframework.amqp.core.MessageBuilder;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -74,13 +75,26 @@ public class RequestLogFilter implements Filter {
 		} finally {
 			//做成异步
 			if (!requestWrapper.getRequestURI().contains("favicon.ico")) {
-				final RequestLog requestLog = this.getRequestLog(start, requestWrapper, responseWrapper);
-				final Message message = MessageBuilder.withBody(JSON.toJSONString(requestLog).getBytes()).setContentType(MessageProperties.CONTENT_TYPE_JSON).build();
-				rabbitTemplate.convertAndSend(RabbitMqConfig.REQUEST_LOG_QUEUE,message);
-				log.info("日志投递完成！");
+				sendRequestLogToMq(start, requestWrapper, responseWrapper);
 			}
 			
 		}
+	}
+	/**
+	 * 异步发送请求日志到mq中 <BR>
+	 * @param start 开始时间
+	 * @param requestWrapper 请求包装类
+	 * @param responseWrapper 结果包装类
+	 * @throws IOException 异常
+	 * @author zhangwei
+	 * @createTime 2020/4/26 11:28 上午
+	 */
+	@Async
+	private void sendRequestLogToMq(long start, HttpServletRequestWrapper requestWrapper, BodyCachingHttpServletResponseWrapper responseWrapper) throws IOException {
+		final RequestLog requestLog = this.getRequestLog(start, requestWrapper, responseWrapper);
+		final Message message = MessageBuilder.withBody(JSON.toJSONString(requestLog).getBytes()).setContentType(MessageProperties.CONTENT_TYPE_JSON).build();
+		rabbitTemplate.convertAndSend(RabbitMqConfig.REQUEST_LOG_QUEUE,message);
+		log.info("日志投递完成！");
 	}
 	
 	/**
