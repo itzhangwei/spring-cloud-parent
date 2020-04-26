@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: seata,mq
   data:
     mongodb:
       host: 106.13.162.44
