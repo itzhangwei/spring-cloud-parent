@@ -2,7 +2,7 @@ seata:
   enabled: true
   application-id: order-service
   tx-service-group: my_test_tx_group
-  #enable-auto-data-source-proxy: true
+  enable-auto-data-source-proxy: false
   #use-jdk-proxy: false
   client:
     rm:
