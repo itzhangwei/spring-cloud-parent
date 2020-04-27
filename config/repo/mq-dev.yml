@@ -1,7 +1,7 @@
 spring:
   rabbitmq:
     port: 5672
-    host: @extranet-ip@
+    host: 106.13.162.44
     username: admin
     password: admin-rabbitmq #'{cipher}2a844fefdd91080cee2a7f3f328abede624aaaa17b1822ff532273a681813c20'
     publisher-confirms: true #消息发送到交换器确认
