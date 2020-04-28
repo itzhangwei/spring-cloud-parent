@@ -48,11 +48,11 @@ spring:
             validation-query: select 1 FROM DUAL
         storage:
           username: dev_tools
-            password: dev_tools
-            url: jdbc:mysql://pipiwanshui.mysql.rds.aliyuncs.com:3306/learn-storage?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-            driver-class-name: com.mysql.cj.jdbc.Driver
-            druid: #以下均为默认值
-              validation-query: select 1 FROM DUAL
+          password: dev_tools
+          url: jdbc:mysql://pipiwanshui.mysql.rds.aliyuncs.com:3306/learn-storage?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          druid: #以下均为默认值
+            validation-query: select 1 FROM DUAL
   cloud:
     alibaba:
       seata:
