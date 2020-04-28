@@ -1,4 +1,4 @@
-package com.gymbomate.base.util;
+package com.learn.common.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
