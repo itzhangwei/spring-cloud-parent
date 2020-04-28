@@ -1,10 +1,9 @@
 package com.learn.common.share.table;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.pool.DruidPooledConnection;
 import com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl;
-import com.alibaba.druid.proxy.jdbc.DataSourceProxy;
 import com.gymbomate.base.util.StringUtil;
+import io.seata.rm.datasource.ConnectionProxy;
+import io.seata.rm.datasource.DataSourceProxy;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.statement.RoutingStatementHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
@@ -130,13 +129,13 @@ public class ShareTableInterceptor implements Interceptor {
 		return newSql;
 	}
 	
-	private AtomicReference<String> getDataSourceKey(DataSourceProxy directDataSource, MetaObject metaObject) {
+	private AtomicReference<String> getDataSourceKey(DataSourceProxy dataSourceProxy, MetaObject metaObject) {
 		//获取到多数据源配置
-		final LinkedHashMap<String, DruidDataSource> dataSourceMap = (LinkedHashMap<String, DruidDataSource>) metaObject.getValue("delegate.configuration.environment.dataSource.dataSourceMap");
+		final LinkedHashMap<String, DataSourceProxy> dataSourceMap = (LinkedHashMap<String, DataSourceProxy>) metaObject.getValue("delegate.configuration.environment.dataSource.dataSourceMap");
 		// 拿到本次数据源的key
 		AtomicReference<String> key = new AtomicReference<>("") ;
 		dataSourceMap.forEach((k, v) ->{
-			if (v == directDataSource) {
+			if (v == dataSourceProxy) {
 				key.set(k);
 			}
 		});
@@ -175,10 +174,9 @@ public class ShareTableInterceptor implements Interceptor {
 		final Proxy arg = (Proxy)invocation.getArgs()[0];
 		//获取到连接
 		final ConnectionLogger con = (ConnectionLogger) Proxy.getInvocationHandler(arg);
-		final DruidPooledConnection connection = (DruidPooledConnection) con.getConnection();
-		final ConnectionProxyImpl connectionProxy = (ConnectionProxyImpl) connection.getConnection();
+		final ConnectionProxy conConnection = (ConnectionProxy) con.getConnection();
 		//获取数据源
-		return connectionProxy.getDirectDataSource();
+		return conConnection.getDataSourceProxy();
 	}
 	
 	/**
