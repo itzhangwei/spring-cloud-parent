@@ -1,7 +1,6 @@
 package com.learn.common.share.table;
 
-import com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl;
-import com.gymbomate.base.util.StringUtil;
+import com.learn.common.util.StringUtil;
 import io.seata.rm.datasource.ConnectionProxy;
 import io.seata.rm.datasource.DataSourceProxy;
 import lombok.extern.slf4j.Slf4j;
