@@ -55,6 +55,10 @@ public class ApiResult<T> {
 		return result;
 	}
 	
+	public static ApiResult<?> success() {
+		return new ApiResult<>();
+	}
+	
 	public static ApiResult<Object> error(BaseException error) {
 		ApiResult<Object> result = new ApiResult<>();
 		result.setCode(error.getCode());
