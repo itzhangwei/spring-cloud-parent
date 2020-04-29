@@ -18,6 +18,7 @@ spring:
       primary: master
       datasource:
         master:
+          schema: db/undo_log.sql
           username: dev_root
           password: dev_root
           url: jdbc:mysql://pipiwanshui.mysql.rds.aliyuncs.com:3306/learn-db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
@@ -40,6 +41,7 @@ spring:
             filters: stat,wall
             share-prepared-statements: true
         tools:
+          schema: db/undo_log.sql
           username: dev_tools
           password: dev_tools
           url: jdbc:mysql://pipiwanshui.mysql.rds.aliyuncs.com:3306/learn-tools?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
@@ -47,6 +49,7 @@ spring:
           druid: #以下均为默认值
             validation-query: select 1 FROM DUAL
         storage:
+          schema: db/undo_log.sql
           username: dev_storage
           password: dev_storage
           url: jdbc:mysql://pipiwanshui.mysql.rds.aliyuncs.com:3306/learn-storage?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
