@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.learn.common.config.RabbitMqConfig;
 import com.learn.common.entity.BodyCachingHttpServletResponseWrapper;
+import com.learn.common.entity.BufferedRequestWrapper;
 import com.learn.common.entity.db.tools.RequestLog;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
@@ -65,17 +66,16 @@ public class RequestLogFilter implements Filter {
 		final long start = System.currentTimeMillis();
 		
 		// 获取包装类
-		final HttpServletRequestWrapper requestWrapper = new HttpServletRequestWrapper((HttpServletRequest) servletRequest);
-		
+		final BufferedRequestWrapper requestWrapper = new BufferedRequestWrapper((HttpServletRequest) servletRequest);
+
 		final BodyCachingHttpServletResponseWrapper responseWrapper = new BodyCachingHttpServletResponseWrapper((HttpServletResponse) servletResponse);
-		
 		try {
 			// 放行
 			filterChain.doFilter(requestWrapper, responseWrapper);
 		} finally {
 			//做成异步
 			if (!requestWrapper.getRequestURI().contains("favicon.ico")) {
-				sendRequestLogToMq(start, requestWrapper, responseWrapper);
+				this.sendRequestLogToMq(start, requestWrapper, responseWrapper);
 			}
 			
 		}
@@ -90,7 +90,8 @@ public class RequestLogFilter implements Filter {
 	 * @createTime 2020/4/26 11:28 上午
 	 */
 	@Async
-	private void sendRequestLogToMq(long start, HttpServletRequestWrapper requestWrapper, BodyCachingHttpServletResponseWrapper responseWrapper) throws IOException {
+	void sendRequestLogToMq(long start, BufferedRequestWrapper requestWrapper,
+	                        BodyCachingHttpServletResponseWrapper responseWrapper) throws IOException {
 		final RequestLog requestLog = this.getRequestLog(start, requestWrapper, responseWrapper);
 		final Message message = MessageBuilder.withBody(JSON.toJSONString(requestLog).getBytes()).setContentType(MessageProperties.CONTENT_TYPE_JSON).build();
 		rabbitTemplate.convertAndSend(RabbitMqConfig.REQUEST_LOG_QUEUE,message);
@@ -107,7 +108,8 @@ public class RequestLogFilter implements Filter {
 	 * @author zhangwei
 	 * @createTime 2020/4/23 10:22 上午
 	 */
-	private RequestLog getRequestLog(long start, HttpServletRequestWrapper requestWrapper, BodyCachingHttpServletResponseWrapper responseWrapper) throws IOException {
+	private RequestLog getRequestLog(long start, BufferedRequestWrapper requestWrapper,
+	                                 BodyCachingHttpServletResponseWrapper responseWrapper) throws IOException {
 		final long endTime = System.currentTimeMillis();
 		final RequestLog requestLog = new RequestLog();
 		requestLog.applicationName = applicationName;
@@ -126,7 +128,7 @@ public class RequestLogFilter implements Filter {
 		requestLog.queryString = requestWrapper.getQueryString();
 		requestLog.restUri=requestWrapper.getRequestURI();
 		requestLog.restUrl=requestWrapper.getRequestURL().toString();
-		requestLog.requestBody = this.getRequestBody(requestWrapper);
+		requestLog.requestBody = requestWrapper.getRequestBody();
 		requestLog.header = this.getHeader(requestWrapper);
 		requestLog.responseBody=responseWrapper.getBodyString();
 		log.info("请求参数：{}", JSON.toJSONString(requestLog));
