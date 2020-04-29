@@ -44,7 +44,7 @@ public class RequestLogQueueListener {
 			RequestLog requestLog = JSON.parseObject(message.getBody(), RequestLog.class);
 			final int exist = requestLogDao.existTable();
 			if (exist == 0) {
-				requestLogDao.createTable("request_log");
+				requestLogDao.createTable("t_request_log");
 			}
 			// 日志入库操作
 				this.requestLogDao.insert(requestLog);

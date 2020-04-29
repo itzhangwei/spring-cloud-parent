@@ -24,7 +24,7 @@ import static com.learn.common.share.table.StrategyParam.YearAndMouth;
  */
 @DS("tools")
 @Repository
-@ShareTableTarget(rules = {@ShareTableRule(sourceTableName = "request_log", targetTableName = "request_log", strategyParamClass = YearAndMouth.class)} , getDataSource = "tools")
+@ShareTableTarget(rules = {@ShareTableRule(sourceTableName = "t_request_log", targetTableName = "t_request_log", strategyParamClass = YearAndMouth.class)} , getDataSource = "tools")
 public interface  RequestLogDao extends BaseMapper<RequestLog> {
 	
 	/**
@@ -34,7 +34,7 @@ public interface  RequestLogDao extends BaseMapper<RequestLog> {
 	 * @author zhangwei
 	 * @createTime 2020/4/16 11:57 上午
 	 */
-	@Select("SELECT COUNT(1) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='request_log'")
+	@Select("SELECT COUNT(1) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='t_request_log'")
 	int existTable();
 	
 	/**
