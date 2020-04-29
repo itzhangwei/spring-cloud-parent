@@ -2,6 +2,7 @@ package com.learn.server.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -18,7 +19,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// 配置全部路径不认证
-		http.authorizeRequests().anyRequest().permitAll().and().logout().permitAll();
+		
+		http.csrf().disable()
+				.cors()
+				.and().servletApi().disable()
+				.requestCache().disable();
+
 	}
 }
