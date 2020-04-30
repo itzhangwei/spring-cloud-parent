@@ -1,7 +1,7 @@
 seata:
   enabled: true
-  application-id: account-seata-example
-  tx-service-group: account-service-seata-service-group # 事务群组（可以每个应用独立取名，也可以使用相同的名字）
+  application-id: spring-cloud-seata
+  tx-service-group: my_test_tx_group # 事务群组（可以每个应用独立取名，也可以使用相同的名字）
   client:
     rm-report-success-enable: true
     rm-table-meta-check-enable: false # 自动刷新缓存中的表结构（默认false）
@@ -24,10 +24,12 @@ seata:
       spring:
         datasource-autoproxy: true
   service:
-    vgroup-mapping: default # TC 集群（必须与seata-server保持一致）
+    vgroup-mapping:
+      my_test_tx_group: default # TC 集群（必须与seata-server保持一致）
     enable-degrade: false # 降级开关
     disable-global-transaction: false # 禁用全局事务（默认false）
-    grouplist: 127.0.0.1:8091
+    grouplist:
+      default: 106.13.162.44:8091
   transport:
     shutdown:
       wait: 3
@@ -80,7 +82,7 @@ seata:
     eureka:
       application: default
       weight: 1
-      service-url: http://106.13.162.44:8761/eureka
+      service-url: http://106.13.162.44:8110/eureka
     nacos:
       cluster: default
       server-addr: localhost
