@@ -25,11 +25,11 @@ seata:
         datasource-autoproxy: true
   service:
     vgroup-mapping:
-      my_test_tx_group: seata # TC 集群（必须与seata-server保持一致）
+      my_test_tx_group: default # TC 集群（必须与seata-server保持一致）
     enable-degrade: false # 降级开关
     disable-global-transaction: false # 禁用全局事务（默认false）
     grouplist:
-      seata: 106.13.162.44:8091
+      default: 106.13.162.44:8091
   transport:
     shutdown:
       wait: 3
@@ -80,7 +80,7 @@ seata:
       cluster: default
       serverAddr: http://106.13.162.44:2379
     eureka:
-      application: default
+      application: seata
       weight: 1
       service-url: http://admin:admin-eureka@106.13.162.44:8110/eureka
     nacos:
