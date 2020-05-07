@@ -1,4 +1,5 @@
 seata:
+  enable-auto-data-source-proxy: false
   enabled: true
   application-id: spring-cloud-seata
   tx-service-group: my_test_tx_group # 事务群组（可以每个应用独立取名，也可以使用相同的名字）
@@ -25,7 +26,7 @@ seata:
         datasource-autoproxy: true
   service:
     vgroup-mapping:
-      my_test_tx_group: seata # TC 集群（必须与seata-server保持一致）
+      my_test_tx_group: seata # TC 集群（必须与seata-server保持一致），eureka中的服务名称
     enable-degrade: false # 降级开关
     disable-global-transaction: false # 禁用全局事务（默认false）
     grouplist:
@@ -80,7 +81,7 @@ seata:
       cluster: default
       serverAddr: http://106.13.162.44:2379
     eureka:
-      application: seata
+      application: seata #eureka中的服务名称
       weight: 1
       service-url: http://admin:admin-eureka@106.13.162.44:8110/eureka
     nacos:
