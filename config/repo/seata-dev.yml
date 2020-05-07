@@ -82,7 +82,7 @@ seata:
     eureka:
       application: default
       weight: 1
-      service-url: http://106.13.162.44:8110/eureka
+      service-url: http://admin:admin-eureka@106.13.162.44:8110/eureka
     nacos:
       cluster: default
       server-addr: localhost
