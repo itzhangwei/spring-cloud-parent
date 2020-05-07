@@ -28,7 +28,7 @@ seata:
     vgroup-mapping:
       my_test_tx_group: seata # TC 集群（必须与seata-server保持一致），eureka中的服务名称
     enable-degrade: false # 降级开关
-    disable-global-transaction: false # 禁用全局事务（默认false）
+    disable-global-transaction: true # 禁用全局事务（默认false）
     grouplist:
       default: 106.13.162.44:8091
   transport:
