@@ -13,6 +13,7 @@ spring:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: true #jackson返回date为日期时间戳
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     dynamic:
       seata: true
       primary: master
