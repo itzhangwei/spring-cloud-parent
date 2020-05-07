@@ -25,11 +25,11 @@ seata:
         datasource-autoproxy: true
   service:
     vgroup-mapping:
-      my_test_tx_group: default # TC 集群（必须与seata-server保持一致）
+      my_test_tx_group: seata # TC 集群（必须与seata-server保持一致）
     enable-degrade: false # 降级开关
     disable-global-transaction: false # 禁用全局事务（默认false）
     grouplist:
-      default: 106.13.162.44:8091
+      seata: 106.13.162.44:8091
   transport:
     shutdown:
       wait: 3
