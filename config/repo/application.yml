@@ -60,7 +60,7 @@ spring:
   cloud:
     alibaba:
       seata:
-        tx-service-group: my_test_tx_group #必须，和file.conf里配置对应上,详情自行了解seata。
+        tx-service-group: default #必须，和file.conf里配置对应上,详情自行了解seata。
 
 mybatis-plus:
   global-config:
