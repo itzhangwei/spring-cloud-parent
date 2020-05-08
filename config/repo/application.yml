@@ -1,6 +1,6 @@
 spring:
   main:
-    allow-bean-definition-overriding: true #允许bean重复覆盖，后面的bean会覆盖前面的bean
+    allow-bean-definition-overriding: true #允许bean重复覆盖，后面的bean会覆盖前面的bean,加在配置中心里面时机已经晚了
   data:
     mongodb:
       host: 106.13.162.44
