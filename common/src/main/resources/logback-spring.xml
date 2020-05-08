@@ -145,7 +145,7 @@
         <appender-ref ref="console"/>
         <!--        日志输出文件 -->
         <appender-ref ref="fileLog"/>
-        <appender-ref ref="logstash"/>
+<!--        <appender-ref ref="logstash"/>-->
         <appender-ref ref="mongodb"/>
 <!--        <appender-ref ref="logstash2"/>-->
 

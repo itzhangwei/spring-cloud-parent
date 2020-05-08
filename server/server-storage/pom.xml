@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>server-provider</artifactId>
+    <artifactId>server-storage</artifactId>
 
     <dependencies>
 

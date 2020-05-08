@@ -1,4 +1,4 @@
-package com.learn.server;
+package com.learn.storage;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -31,9 +31,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @MapperScan("com.learn.common.db.dao.*")
 @EnableAsync
 @EnableFeignClients
-public class ProviderApplication {
+public class StorageApplication {
 	
 	public static void main(String[] args) {
-		SpringApplication.run(ProviderApplication.class, args);
+		SpringApplication.run(StorageApplication.class, args);
 	}
 }

@@ -1,7 +1,7 @@
 
 spring:
   application:
-    name: server-provider
+    name: server-storage
   cloud:
     config:
       discovery:
@@ -29,7 +29,7 @@ eureka:
     prefer-ip-address: true
     extranet-ip-show: true
 server:
-  port: 8810
+  port: 8820
 
 encrypt:
   key: ${spring.application.name}:${server.port}
