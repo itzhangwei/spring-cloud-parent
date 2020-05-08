@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true #允许bean重复覆盖，后面的bean会覆盖前面的bean
   data:
     mongodb:
       host: 106.13.162.44
