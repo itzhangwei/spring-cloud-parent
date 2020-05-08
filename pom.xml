@@ -60,6 +60,7 @@
         <dynamic-datasource-spring-boot-starter-version>3.0.0</dynamic-datasource-spring-boot-starter-version>
         <druid-version>1.1.22</druid-version>
         <commons-lang3-version>3.10</commons-lang3-version>
+        <spring-cloud-alibaba-seata-version>2.2.0.RELEASE</spring-cloud-alibaba-seata-version>
         <seata-version>1.2.0</seata-version>
 
     </properties>
@@ -218,7 +219,7 @@
                 <version>${spring-boot-version}</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+            <!-- https://mvnrepository.com/arti fact/mysql/mysql-connector-java -->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
@@ -261,13 +262,62 @@
                 <version>${spring-boot-version}</version>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-alibaba-seata -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-seata</artifactId>
+                <version>${spring-cloud-alibaba-seata-version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.alibaba.cloud</groupId>
+                        <artifactId>spring-cloud-alibaba-seata</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>io.seata</groupId>
+                        <artifactId>seata-all</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/io.seata/seata-all -->
+<!--            <dependency>-->
+<!--                <groupId>io.seata</groupId>-->
+<!--                <artifactId>seata-all</artifactId>-->
+<!--                <version>${seata-version}</version>-->
+<!--                <exclusions>-->
+<!--                    <exclusion>-->
+<!--                        <groupId>org.springframework</groupId>-->
+<!--                        <artifactId>spring-context</artifactId>-->
+<!--                    </exclusion>-->
+<!--                    <exclusion>-->
+<!--                        <groupId>org.slf4j</groupId>-->
+<!--                        <artifactId>slf4j-api</artifactId>-->
+<!--                    </exclusion>-->
+<!--                    <exclusion>-->
+<!--                        <groupId>org.springframework</groupId>-->
+<!--                        <artifactId>spring-core</artifactId>-->
+<!--                    </exclusion>-->
+<!--                    <exclusion>-->
+<!--                        <groupId>org.springframework</groupId>-->
+<!--                        <artifactId>spring-beans</artifactId>-->
+<!--                    </exclusion>-->
+<!--                    <exclusion>-->
+<!--                        <groupId>org.springframework</groupId>-->
+<!--                        <artifactId>spring-aop</artifactId>-->
+<!--                    </exclusion>-->
+<!--                    <exclusion>-->
+<!--                        <groupId>org.springframework</groupId>-->
+<!--                        <artifactId>spring-webmvc</artifactId>-->
+<!--                    </exclusion>-->
+<!--                </exclusions>-->
+<!--            </dependency>-->
+
             <!-- https://mvnrepository.com/artifact/io.seata/seata-spring-boot-starter -->
             <dependency>
                 <groupId>io.seata</groupId>
                 <artifactId>seata-spring-boot-starter</artifactId>
                 <version>${seata-version}</version>
             </dependency>
-
         </dependencies>
 
     </dependencyManagement>
