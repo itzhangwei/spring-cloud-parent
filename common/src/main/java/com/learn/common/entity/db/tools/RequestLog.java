@@ -45,7 +45,7 @@ public class RequestLog implements Serializable {
 	public int status;
 	public String method;
 	public String userAgent;
-	public String reqId;
+	public String traceId;
 	public String userName;
 	public String queryString;
 	public String contentType;
