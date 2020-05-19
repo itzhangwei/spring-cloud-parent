@@ -1,6 +1,9 @@
 package com.learn.common.entity.db.storage;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -13,6 +16,9 @@ import java.util.Date;
  * @date 2020/4/28 5:22 下午
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
 	private String id;
 	private String productName;
