@@ -1,12 +1,11 @@
 package com.learn.common.db.dao.tools;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.learn.common.entity.db.tools.RequestLog;
+import com.learn.common.mybatis.injector.MyBaseMapper;
 import com.learn.common.share.table.ShareTableRule;
 import com.learn.common.share.table.ShareTableTarget;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import static com.learn.common.share.table.StrategyParam.YearAndMouth;
@@ -25,17 +24,8 @@ import static com.learn.common.share.table.StrategyParam.YearAndMouth;
 @DS("tools")
 @Repository
 @ShareTableTarget(rules = {@ShareTableRule(sourceTableName = "t_request_log", targetTableName = "t_request_log", strategyParamClass = YearAndMouth.class)} , getDataSource = "tools")
-public interface  RequestLogDao extends BaseMapper<RequestLog> {
+public interface  RequestLogDao extends MyBaseMapper<RequestLog> {
 	
-	/**
-	 * count大于0就存在 <BR>
-	 * @param tableName 表名称
-	 * @return int
-	 * @author zhangwei
-	 * @createTime 2020/4/16 11:57 上午
-	 */
-	@Select("SELECT COUNT(1) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='t_request_log'")
-	int existTable();
 	
 	/**
 	 * 创建表 <BR>
