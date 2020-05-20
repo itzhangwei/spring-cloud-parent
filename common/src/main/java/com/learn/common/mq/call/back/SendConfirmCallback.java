@@ -3,6 +3,7 @@ package com.learn.common.mq.call.back;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j(topic = "mq消息发送到交换机成功回调函数【SendConfirmCallback】")
+@Async
 public class SendConfirmCallback implements RabbitTemplate.ConfirmCallback {
 	@Override
 	public void confirm(CorrelationData correlationData, boolean ack, String cause) {
