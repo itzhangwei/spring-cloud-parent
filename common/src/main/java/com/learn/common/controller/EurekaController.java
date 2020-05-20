@@ -49,7 +49,7 @@ public class EurekaController {
 		
 		
 		// 通过实例ID，获取服务
-		services.parallelStream().forEachOrdered(s -> {
+		services.forEach(s -> {
 			
 			
 			//收集不同服务实例
