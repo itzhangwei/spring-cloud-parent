@@ -29,7 +29,7 @@
     <!--输出到文件-->
     <appender name="fileLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>error</level>
+            <level>info</level>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <FileNamePattern>${LOG_HOME}/${name}.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
@@ -95,10 +95,11 @@
                     <pattern>
                         {
                         "timestamp":"%d{yyyy-MM-dd HH:mm:ss.SSS}",
-                        "severity": "%level",
-                        "service": "${name:-}",
-                        "trace": "%X{X-B3-TraceId:-}",
-                        "span": "%X{X-B3-SpanId:-}",
+                        "level": "%level",
+                        "serviceName": "${name:-}",
+                        "lineNumber": "%line",
+                        "traceId": "%X{X-B3-TraceId:-}",
+                        "spanId": "%X{X-B3-SpanId:-}",
                         "exportable": "%X{X-Span-Export:-}",
                         "pid": "${PID:-}",
                         "thread": "%thread",
@@ -145,9 +146,7 @@
         <appender-ref ref="console"/>
         <!--        日志输出文件 -->
         <appender-ref ref="fileLog"/>
-<!--        <appender-ref ref="logstash"/>-->
         <appender-ref ref="mongodb"/>
-<!--        <appender-ref ref="logstash2"/>-->
 
     </root>
 
