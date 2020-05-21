@@ -1,5 +1,6 @@
 package com.learn.common.filter;
 
+import brave.Tracer;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.learn.common.config.RabbitMqConfig;
@@ -12,6 +13,7 @@ import org.springframework.amqp.core.MessageBuilder;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -23,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * @author zhang
@@ -38,12 +39,15 @@ import java.util.concurrent.CompletableFuture;
 public class RequestLogFilter implements Filter {
 	
 	private final RabbitTemplate rabbitTemplate;
+	private final Tracer tracer;
 	@Value("${spring.application.name:unknown}")
 	private  String  applicationName;
 	
-	public RequestLogFilter(RabbitTemplate rabbitTemplate) {
+	public RequestLogFilter(RabbitTemplate rabbitTemplate, Tracer tracer) {
 		this.rabbitTemplate = rabbitTemplate;
+		this.tracer = tracer;
 	}
+	
 	/**
 	 * 初始化方法
 	 * @param filterConfig
@@ -90,17 +94,14 @@ public class RequestLogFilter implements Filter {
 	 * @author zhangwei
 	 * @createTime 2020/4/30 9:44 上午
 	 */
-	private void async(long start, BufferedRequestWrapper requestWrapper, BodyCachingHttpServletResponseWrapper responseWrapper) {
-		CompletableFuture.supplyAsync(()->{
-			try {
-				this.sendRequestLogToMq(start, requestWrapper, responseWrapper);
-				
-			} catch (IOException e) {
-				log.error("异步消息错误", e);
-				return false;
-			}
-			return true;
-		});
+	@Async
+	void async(long start, BufferedRequestWrapper requestWrapper, BodyCachingHttpServletResponseWrapper responseWrapper) {
+		try {
+			this.sendRequestLogToMq(start, requestWrapper, responseWrapper);
+			
+		} catch (IOException e) {
+			log.error("异步消息错误", e);
+		}
 	}
 	
 	/**
@@ -146,13 +147,13 @@ public class RequestLogFilter implements Filter {
 		requestLog.status = responseWrapper.getStatus();
 		requestLog.method = requestWrapper.getMethod();
 		requestLog.userAgent = requestWrapper.getHeader("user-agent");
-		requestLog.reqId = requestWrapper.getHeader("reqId");
 		requestLog.queryString = requestWrapper.getQueryString();
 		requestLog.restUri=requestWrapper.getRequestURI();
 		requestLog.restUrl=requestWrapper.getRequestURL().toString();
 		requestLog.requestBody = requestWrapper.getRequestBody();
 		requestLog.header = this.getHeader(requestWrapper);
 		requestLog.responseBody=responseWrapper.getBodyString();
+		requestLog.traceId = this.tracer.currentSpan() == null ? "" : this.tracer.currentSpan().context().traceId() + "";
 		log.info("请求参数：{}", JSON.toJSONString(requestLog));
 		return requestLog;
 	}
