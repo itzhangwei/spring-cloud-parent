@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.learn.common.db.dao.tools.Slf4jDao">
+
+    <update id="createTable">
+        CREATE TABLE t_slf4j
+        (
+            `id`           int(11)                                                       NOT NULL AUTO_INCREMENT,
+            `timestamp`    datetime(2)                                                   NULL DEFAULT NULL COMMENT '日志时间',
+            `level`        varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '日志级别',
+            `service_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '服务名称',
+            `trace_id`     varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '链路ID',
+            `span_id`      varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT 'spanId',
+            `exportable`   varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '是否被sleuth记录',
+            `line_number`  varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '行号',
+            `pid`          varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '进程ID',
+            `thread`       varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL DEFAULT NULL COMMENT '线程',
+            `class_name`    varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类名称，或者是slfj的topic内容',
+            `message`      text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NULL COMMENT '消息内容',
+            PRIMARY KEY (`id`) USING BTREE,
+            INDEX `trace_id` (`trace_id`) USING BTREE,
+            INDEX `timestamp` (`timestamp`) USING BTREE,
+            INDEX `service_name` (`service_name`) USING BTREE,
+            INDEX `span_id` (`span_id`) USING BTREE
+        ) ENGINE = InnoDB
+          AUTO_INCREMENT = 0
+          CHARACTER SET = utf8mb4
+          COLLATE = utf8mb4_general_ci COMMENT = 'slf4j日志记录表'
+          ROW_FORMAT = Compact
+    </update>
+</mapper>
