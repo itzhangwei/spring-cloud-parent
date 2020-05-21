@@ -93,7 +93,8 @@ public class UserServiceImpl implements UserService {
 	 */
 //	@GlobalTransactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRES_NEW)
 	Integer doSave(String userId, String createBy, Date createTime) {
-		final Product product = new Product();
+		final Product product = Product.builder().build();
+//		final Product product = new Product();
 		product.setId(StringUtil.getUUID32());
 		product.setProductName("iPhone plus");
 		product.setColor("屎黄色");
