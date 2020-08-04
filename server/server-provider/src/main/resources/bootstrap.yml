@@ -34,11 +34,6 @@ server:
 encrypt:
   key: ${spring.application.name}:${server.port}
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
 
 myself:
   eureka:
