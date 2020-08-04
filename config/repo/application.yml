@@ -69,3 +69,13 @@ mybatis-plus:
     db-config:
       table-underline: true #表名称驼峰
       table-prefix: t_ #表名称前缀
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: env,beans
+    jmx:
+      exposure:
+        include: "*"
