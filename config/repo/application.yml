@@ -75,7 +75,7 @@ management:
     web:
       exposure:
         include: "*"
-        exclude: env,beans
+#        exclude: env,beans
     jmx:
       exposure:
         include: "*"
