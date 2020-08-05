@@ -20,10 +20,10 @@ import org.springframework.stereotype.Component;
  * EurekaInstanceConfigBean 还是优先加载，项目加载玩了才扫描到 Component，
  * 从而达到覆盖以一次加载的配置
  */
-@Component
-@Primary
+//@Component
+//@Primary
 @Slf4j
-@ConfigurationProperties("eureka.instance")
+//@ConfigurationProperties("eureka.instance")
 public class IpEureka extends EurekaInstanceConfigBean {
 	
 	private final ConfigurableEnvironment env;

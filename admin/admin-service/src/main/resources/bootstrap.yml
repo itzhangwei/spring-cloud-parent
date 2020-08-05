@@ -1,7 +1,8 @@
 
+
 spring:
   application:
-    name: server-storage
+    name: admin-service
   cloud:
     config:
       discovery:
@@ -10,16 +11,11 @@ spring:
       label: master
       profile: dev
       fail-fast: true
-      name: ${spring.application.name},mq,seata
-    bus:
-      trace:
-        enabled: true
-  main:
-    allow-bean-definition-overriding: true
+      name: ${spring.application.name}
   boot:
     admin:
-      client:
-        url: http://localhost:8510
+      ui:
+        title: 服务监控
 eureka:
   client:
     service-url:
@@ -31,29 +27,10 @@ eureka:
     # ${spring.cloud.client.ip-address} ip地址还是要加的，不然同名的服务，端口相同的不同主机注册过来就唧唧了
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
     prefer-ip-address: true
-    extranet-ip-show: true
+
 server:
-  port: 8820
-
-encrypt:
-  key: ${spring.application.name}:${server.port}
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-
-myself:
-  eureka:
-    version: 19.10.18.1
-feign:
-  hystrix:
-    enabled: true
-
+  port: 8510
 logging:
-  level:
-    com.learn.*: debug
-
-
-
+  file:
+    path: ./logs
+    name: admin.log

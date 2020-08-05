@@ -177,5 +177,6 @@
             <groupId>io.seata</groupId>
             <artifactId>seata-spring-boot-starter</artifactId>
         </dependency>
+
     </dependencies>
 </project>
