@@ -70,7 +70,11 @@ mybatis-plus:
       table-underline: true #表名称驼峰
       table-prefix: t_ #表名称前缀
 
+#spirng admin 监控需要暴露
 management:
+  endpoint:
+    health:
+      show-details: always
   endpoints:
     web:
       exposure:
@@ -79,3 +83,6 @@ management:
     jmx:
       exposure:
         include: "*"
+#日志文件位置
+logging:
+  path: logs/log
