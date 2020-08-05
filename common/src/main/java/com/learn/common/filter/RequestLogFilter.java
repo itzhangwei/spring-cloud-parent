@@ -78,7 +78,10 @@ public class RequestLogFilter implements Filter {
 			filterChain.doFilter(requestWrapper, responseWrapper);
 		} finally {
 			//做成异步
-			if (!requestWrapper.getRequestURI().contains("favicon.ico")) {
+			if (!requestWrapper.getRequestURI().contains("favicon.ico")
+					&& !requestWrapper.getRequestURI().contains("/actuator/health")
+					&& !requestWrapper.getRequestURI().contains("/actuator")
+					&& !requestWrapper.getRequestURI().contains("/actuator/info")) {
 				this.async(start, requestWrapper, responseWrapper);
 				
 			}
