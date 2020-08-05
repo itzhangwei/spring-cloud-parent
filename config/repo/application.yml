@@ -83,6 +83,4 @@ management:
     jmx:
       exposure:
         include: "*"
-#日志文件位置
-logging:
-  path: logs/log
+
