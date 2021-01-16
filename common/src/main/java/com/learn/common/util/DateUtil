@@ -1,0 +1,74 @@
+//package com.xiaoniu.okr;
+//
+//import com.xiaoniu.ox.common.exception.OxException;
+//import lombok.extern.log4j.Log4j2;
+//
+//import java.time.LocalDate;
+//import java.time.LocalDateTime;
+//import java.time.ZoneId;
+//import java.util.Date;
+//
+///**
+// * 时间工具类
+// * @author zhangwei4
+// * @date 2021/1/16 13:38
+// */
+//@Log4j2
+//public class DateUtil {
+//
+//    /**
+//     * util 的 {@link Date} 日期转换为 {@link LocalDate} 类型日期
+//     * @param date 日期
+//     * @return jdk 1.8类型的日期类型
+//     */
+//    public static LocalDate dateToLocalDate(Date date) {
+//        check(date == null);
+//        assert date != null;
+//        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//    }
+//
+//
+//    /**
+//     * {@link LocalDate} 转换为 {@link Date}
+//     * @param localDate 日期
+//     * @return {@link Date}
+//     */
+//    public Date localDateToDate(LocalDate localDate) {
+//        check(localDate == null);
+//        assert localDate != null;
+//        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+//    }
+//
+//    /**
+//     * {@link Date} 转换为 {@link LocalDateTime}
+//     * @param date 日期 {@link Date}
+//     * @return {@link LocalDateTime}
+//     */
+//    public static LocalDateTime dateToLocalDateTime(Date date) {
+//        check(date == null);
+//        assert date != null;
+//        return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+//    }
+//
+//    /**
+//     * {@link LocalDateTime} 转换为 {@link Date}
+//     * @param localDateTime 日期 {@link LocalDateTime}
+//     * @return {@link Date}
+//     */
+//    public Date localDateTimeToDate(LocalDateTime localDateTime) {
+//        check(localDateTime == null);
+//        assert localDateTime != null;
+//        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+//    }
+//
+//    /**
+//     * 控制住校验
+//     * @param b 是否为 null
+//     */
+//    private static void check(boolean b) {
+//        if (b) {
+//            log.error("需要转换的日期为null");
+//            throw new OxException("转换日期不能为null");
+//        }
+//    }
+//}
