@@ -60,6 +60,25 @@
 //        assert localDateTime != null;
 //        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
 //    }
+//    /**
+//     * 获取日期当天开始时间
+//     * @param date 日期
+//     * @return  指定日期的当天开始时间
+//     */
+//    public static Date getDayBeginDate(@NonNull Date date) {
+//        LocalDateTime begin = LocalDateTime.of(DateUtils.dateToLocalDate(date), LocalTime.MIN);
+//        return DateUtil.localDateTimeToDate(begin);
+//    }
+//
+//    /**
+//     * 获取日期当天开结束时间
+//     * @param date 日期
+//     * @return  指定日期的当天结束时间
+//     */
+//    public static Date getDayEndDate(@NonNull Date date) {
+//        LocalDateTime end = LocalDateTime.of(DateUtils.dateToLocalDate(date), LocalTime.MAX);
+//        return DateUtil.localDateTimeToDate(end);
+//    }
 //
 //    /**
 //     * 控制住校验
